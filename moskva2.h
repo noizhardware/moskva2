@@ -131,86 +131,6 @@
                 SERIPRINT("rebooting...\n");\
                 reset_AVR();}
 
-      void processIncomingByte (const byte inByte)
-  {
-  static char input_line [MAX_INPUT];
-  static unsigned int input_pos = 0;
-
-  switch (inByte)
-    {
-
-    case '\n':   // end of text
-      input_line [input_pos] = 0;  // terminating null byte
-
-      // terminator reached! process input_line here ...
-      if(input_line == "debug-a\n"){
-                if(debug_a){
-                  debug_a = 0;
-                  SERIPRINT("debug A is OFF");
-                  NEWLINE;
-                }else{
-                  debug_a = 1;
-                  SERIPRINT("debug A is ON");
-                  NEWLINE;
-                }}
-                if(input_line == "debug-b\n"){
-                if(debug_a){
-                  debug_a = 0;
-                  SERIPRINT("debug B is OFF");
-                  NEWLINE;
-                }else{
-                  debug_a = 1;
-                  SERIPRINT("debug B is ON");
-                  NEWLINE;
-                }}
-                if(input_line == "debug-c\n"){
-                if(debug_a){
-                  debug_a = 0;
-                  SERIPRINT("debug C is OFF");
-                  NEWLINE;
-                }else{\
-                  debug_a = 1;
-                  SERIPRINT("debug C is ON");
-                  NEWLINE;
-                }}
-                if(input_line == "debug-d\n"){
-                if(debug_a){
-                  debug_a = 0;
-                  SERIPRINT("debug D is OFF");
-                  NEWLINE;
-                }else{
-                  debug_a = 1;
-                  SERIPRINT("debug D is ON");
-                  NEWLINE;
-                }}
-                if(input_line == "debug-e\n"){
-                if(debug_a){
-                  debug_a = 0;
-                  SERIPRINT("debug E is OFF");
-                  NEWLINE;
-                }else{
-                  debug_a = 1;
-                  SERIPRINT("debug E is ON");
-                  NEWLINE;
-                }}
-
-      // reset buffer for next time
-      input_pos = 0;  
-      break;
-
-    case '\r':   // discard carriage return
-      break;
-
-    default:
-      // keep adding if not full ... allow for terminating null byte
-      if (input_pos < (MAX_INPUT - 1))
-        input_line [input_pos++] = inByte;
-      break;
-
-    }  // end of switch
-
-  } // end of processIncomingByte  
-
       #define LISTEN_DEBUG \
                 while (Serial.available () > 0){\
                   String seri = Serial.readString();\
@@ -225,97 +145,44 @@
                     NEWLINE;\
                   }}\
                   if(seri == "debug-b\n"){\
-                  if(debug_a){\
-                    debug_a = 0;\
+                  if(debug_b){\
+                    debug_b = 0;\
                     SERIPRINT("debug B is OFF");\
                     NEWLINE;\
                   }else{\
-                    debug_a = 1;\
+                    debug_b = 1;\
                     SERIPRINT("debug B is ON");\
                     NEWLINE;\
                   }}\
                   if(seri == "debug-c\n"){\
-                  if(debug_a){\
-                    debug_a = 0;\
+                  if(debug_c){\
+                    debug_c = 0;\
                     SERIPRINT("debug C is OFF");\
                     NEWLINE;\
                   }else{\
-                    debug_a = 1;\
+                    debug_c = 1;\
                     SERIPRINT("debug C is ON");\
                     NEWLINE;\
                   }}\
                   if(seri == "debug-d\n"){\
-                  if(debug_a){\
-                    debug_a = 0;\
+                  if(debug_d){\
+                    debug_d = 0;\
                     SERIPRINT("debug D is OFF");\
                     NEWLINE;\
                   }else{\
-                    debug_a = 1;\
+                    debug_d = 1;\
                     SERIPRINT("debug D is ON");\
                     NEWLINE;\
                   }}\
                   if(seri == "debug-e\n"){\
-                  if(debug_a){\
-                    debug_a = 0;\
+                  if(debug_e){\
+                    debug_e = 0;\
                     SERIPRINT("debug E is OFF");\
                     NEWLINE;\
                   }else{\
-                    debug_a = 1;\
+                    debug_e = 1;\
                     SERIPRINT("debug E is ON");\
                     NEWLINE;\
                 }}}
                 
-        #define LISTEN_DBG \
-                  processIncomingByte (Serial.read ());\
-                if(input_line == "debug-a\n"){\
-                if(debug_a){\
-                  debug_a = 0;\
-                  SERIPRINT("debug A is OFF");\
-                  NEWLINE;\
-                }else{\
-                  debug_a = 1;\
-                  SERIPRINT("debug A is ON");\
-                  NEWLINE;\
-                }}\
-                if(input_line == "debug-b\n"){\
-                if(debug_a){\
-                  debug_a = 0;\
-                  SERIPRINT("debug B is OFF");\
-                  NEWLINE;\
-                }else{\
-                  debug_a = 1;\
-                  SERIPRINT("debug B is ON");\
-                  NEWLINE;\
-                }}\
-                if(input_line == "debug-c\n"){\
-                if(debug_a){\
-                  debug_a = 0;\
-                  SERIPRINT("debug C is OFF");\
-                  NEWLINE;\
-                }else{\
-                  debug_a = 1;\
-                  SERIPRINT("debug C is ON");\
-                  NEWLINE;\
-                }}\
-                if(input_line == "debug-d\n"){\
-                if(debug_a){\
-                  debug_a = 0;\
-                  SERIPRINT("debug D is OFF");\
-                  NEWLINE;\
-                }else{\
-                  debug_a = 1;\
-                  SERIPRINT("debug D is ON");\
-                  NEWLINE;\
-                }}\
-                if(input_line == "debug-e\n"){\
-                if(debug_a){\
-                  debug_a = 0;\
-                  SERIPRINT("debug E is OFF");\
-                  NEWLINE;\
-                }else{\
-                  debug_a = 1;\
-                  SERIPRINT("debug E is ON");\
-                  NEWLINE;\
-                }}
-
 #endif // __MOSKVA2_H__
