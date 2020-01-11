@@ -1,5 +1,6 @@
 # MOSKVA v.2
 ##### v.201911051601
+##### try https://github.com/sainoky/serial_port_monitor
 
 ## Procedura di setup:
   * avvita il sensore alla piastra e alla superficie da usare, tipo la tavola di legno
