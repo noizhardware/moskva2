@@ -1,5 +1,5 @@
 # MOSKVA v.2
-##### v.201911051601
+##### v.202001112309
 ##### try https://github.com/sainoky/serial_port_monitor
 
 ## Procedura di setup:

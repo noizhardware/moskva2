@@ -1,6 +1,6 @@
 #ifndef __MOSKVA2_H__
   #define __MOSKVA2_H__
-  #define __MOSKVA2_H__VERSION 201912081359
+  #define __MOSKVA2_H__VERSION 202001112309
 
 /////////////////// set faster clock ////////////////////////
   // defines for setting and clearing register bits

@@ -4,7 +4,7 @@
 #include "mozg2.h"
 //#include "mozg2_proto0.h"
 
-#define __MOSKVA2_INO__VERSION 201912061710
+#define __MOSKVA2_INO__VERSION 202001112309
 
 CAP_INIT(a, PIN_COMMON_a,PIN_SENSE_a);
 CAP_INIT(b, PIN_COMMON_b,PIN_SENSE_b);
@@ -53,9 +53,7 @@ void loop(){
     PINLOOP(c);
     PINLOOP(d);
     PINLOOP(e);
-    //BRK;
-    //REBOOTLISTEN;
-    //processIncomingByte (Serial.read ());
+    
     LISTEN_SERIAL;
       
 }
