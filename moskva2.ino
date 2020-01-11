@@ -56,6 +56,6 @@ void loop(){
     //BRK;
     //REBOOTLISTEN;
     //processIncomingByte (Serial.read ());
-    LISTEN_DEBUG;
+    LISTEN_SERIAL;
       
 }

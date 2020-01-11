@@ -126,15 +126,11 @@
       #include <avr/io.h>
       #include <avr/wdt.h>
       #define reset_AVR() wdt_enable(WDTO_30MS); while(1) {}
-      #define REBOOTLISTEN \
-                if(Serial.readString() == "reboot\n"){\
-                SERIPRINT("rebooting...\n");\
-                reset_AVR();}
 
-      #define LISTEN_DEBUG \
+      #define LISTEN_SERIAL \
                 while (Serial.available () > 0){\
                   String seri = Serial.readString();\
-                  if(seri == "debug-a\n"){\
+                  if(seri == "debug-a\n" or seri == "da\n"){\
                   if(debug_a){\
                     debug_a = 0;\
                     SERIPRINT("debug A is OFF");\
@@ -147,7 +143,7 @@
                     SERIPRINT(potMaxval_a);\
                     NEWLINE;\
                   }}\
-                  if(seri == "debug-b\n"){\
+                  if(seri == "debug-b\n" or seri == "db\n"){\
                   if(debug_b){\
                     debug_b = 0;\
                     SERIPRINT("debug B is OFF");\
@@ -160,7 +156,7 @@
                     SERIPRINT(potMaxval_b);\
                     NEWLINE;\
                   }}\
-                  if(seri == "debug-c\n"){\
+                  if(seri == "debug-c\n" or seri == "dc\n"){\
                   if(debug_c){\
                     debug_c = 0;\
                     SERIPRINT("debug C is OFF");\
@@ -173,7 +169,7 @@
                     SERIPRINT(potMaxval_c);\
                     NEWLINE;\
                   }}\
-                  if(seri == "debug-d\n"){\
+                  if(seri == "debug-d\n" or seri == "dd\n"){\
                   if(debug_d){\
                     debug_d = 0;\
                     SERIPRINT("debug D is OFF");\
@@ -186,7 +182,7 @@
                     SERIPRINT(potMaxval_d);\
                     NEWLINE;\
                   }}\
-                  if(seri == "debug-e\n"){\
+                  if(seri == "debug-e\n" or seri == "de\n"){\
                   if(debug_e){\
                     debug_e = 0;\
                     SERIPRINT("debug E is OFF");\
@@ -198,6 +194,12 @@
                     SERIPRINT("maxVal for E is: ");\
                     SERIPRINT(potMaxval_e);\
                     NEWLINE;\
-                }}}
+                }}\
+                if(seri == "reboot\n" or seri == "rr\n"){\
+                SERIPRINT("rebooting...\n");\
+                reset_AVR();}\
+                if(seri == "brk\n" or seri == "rr\n"){\
+                  SERIPRINT("-----------------------------------------");\
+                  NEWLINE;}}
                 
 #endif // __MOSKVA2_H__
