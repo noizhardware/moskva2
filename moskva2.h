@@ -143,6 +143,9 @@
                     debug_a = 1;\
                     SERIPRINT("debug A is ON");\
                     NEWLINE;\
+                    SERIPRINT("maxVal for A is: ");\
+                    SERIPRINT(potMaxval_a);\
+                    NEWLINE;\
                   }}\
                   if(seri == "debug-b\n"){\
                   if(debug_b){\
@@ -152,6 +155,9 @@
                   }else{\
                     debug_b = 1;\
                     SERIPRINT("debug B is ON");\
+                    NEWLINE;\
+                    SERIPRINT("maxVal for B is: ");\
+                    SERIPRINT(potMaxval_b);\
                     NEWLINE;\
                   }}\
                   if(seri == "debug-c\n"){\
@@ -163,6 +169,9 @@
                     debug_c = 1;\
                     SERIPRINT("debug C is ON");\
                     NEWLINE;\
+                    SERIPRINT("maxVal for C is: ");\
+                    SERIPRINT(potMaxval_c);\
+                    NEWLINE;\
                   }}\
                   if(seri == "debug-d\n"){\
                   if(debug_d){\
@@ -173,6 +182,9 @@
                     debug_d = 1;\
                     SERIPRINT("debug D is ON");\
                     NEWLINE;\
+                    SERIPRINT("maxVal for D is: ");\
+                    SERIPRINT(potMaxval_d);\
+                    NEWLINE;\
                   }}\
                   if(seri == "debug-e\n"){\
                   if(debug_e){\
@@ -182,6 +194,9 @@
                   }else{\
                     debug_e = 1;\
                     SERIPRINT("debug E is ON");\
+                    NEWLINE;\
+                    SERIPRINT("maxVal for E is: ");\
+                    SERIPRINT(potMaxval_e);\
                     NEWLINE;\
                 }}}
                 
