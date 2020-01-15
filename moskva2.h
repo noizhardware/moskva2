@@ -1,6 +1,16 @@
 #ifndef __MOSKVA2_H__
   #define __MOSKVA2_H__
-  #define __MOSKVA2_H__VERSION 202001112309
+  #define __MOSKVA2_H__VERSION 202001141655
+
+  #include "eepromThings.h"
+  #define SAVEFLAG 0
+  #define SAVEADDRESS 4
+
+  #define SAVEDATA \
+            if(EEPROMflag(SAVEFLAG)){\
+              // here I sohuld load saved data
+              }
+  
 
 /////////////////// set faster clock ////////////////////////
   // defines for setting and clearing register bits
@@ -198,8 +208,11 @@
                 if(seri == "reboot\n" or seri == "rr\n"){\
                 SERIPRINT("rebooting...\n");\
                 reset_AVR();}\
-                if(seri == "brk\n" or seri == "rr\n"){\
+                if(seri == "break\n" or seri == "bk\n" seri == "brk\n"){\
                   SERIPRINT("-----------------------------------------");\
-                  NEWLINE;}}
+                  NEWLINE;}\
+                if(seri == "wipe\n"){\
+                wipeEEPROM();\
+                NEWLINE;}}
                 
 #endif // __MOSKVA2_H__

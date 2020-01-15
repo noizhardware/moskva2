@@ -22,6 +22,13 @@
   * **OLD** se invii "brk"(newline) al serial, ti stampa una linea "-------" tipo segnalibro. non ha alcun altro effetto
   * se invii "debug-nomesensore" in serial, accende/spegne il debug per quel sensore.
     - es: debug-b
+    
+## Serial monitor commands:
+* `debug-nomesensore` attiva/disattiva il debug per quel sensore.
+  - es: `debug-b` - shorthand `db`
+* `reboot` - shorthand `rr` reboots the arduino, same as pushing the reset button or power-cycling
+* `break` - `brk` - `bk` writes a break to console "---------------------"
+* `wipe` - wipes EEPROM, initializing all to 0. _**USE WITH CAUTION**_
 
 ## setup_moscow.h
   E' il file di settaggio per il **progetto**:
