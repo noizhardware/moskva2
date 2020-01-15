@@ -4,12 +4,45 @@
 
   #include "eepromThings.h"
   #define SAVEFLAG 0
-  #define SAVEADDRESS 4
+  #define SAVEADDRESS_a 4
+  #define SAVEADDRESS_b 12 // 8bytes each (for long ints)
+  #define SAVEADDRESS_c 20
+  #define SAVEADDRESS_d 28
+  #define SAVEADDRESS_e 36
 
-  #define SAVEDATA \
+  // TODO:
+  // save-unsave single sensors
+  // implement saving che fa in modo di non dover manco piu usare i pots
+
+  #define SAVEDATA_INIT \
             if(EEPROMflag(SAVEFLAG)){\
-              // here I sohuld load saved data
-              }
+              SERIPRINT("Loading saved calibration data...");\
+              potMaxval_a = getEEPROMlongint(SAVEADDRESS_a);\
+              potMaxval_b = getEEPROMlongint(SAVEADDRESS_b);\
+              potMaxval_c = getEEPROMlongint(SAVEADDRESS_c);\
+              potMaxval_d = getEEPROMlongint(SAVEADDRESS_d);\
+              potMaxval_e = getEEPROMlongint(SAVEADDRESS_e);\
+              SERIPRINT("DONE!"); NEWLINE;\
+            }else{\
+              SERIPRINT("no saved data"); NEWLINE;\
+            }
+
+  #define SAVEDATA_NOW \
+            SERIPRINT("saving calibration data...");\
+            /* all long ints - 8bytes */\
+            setEEPROMlongint(SAVEADDRESS_a, potMaxval_a);\
+            setEEPROMlongint(SAVEADDRESS_b, potMaxval_b);\
+            setEEPROMlongint(SAVEADDRESS_c, potMaxval_c);\
+            setEEPROMlongint(SAVEADDRESS_d, potMaxval_d);\
+            setEEPROMlongint(SAVEADDRESS_e, potMaxval_e);\
+            setEEPROMflag(SAVEFLAG, true);\
+            SERIPRINT("DONE!"); NEWLINE
+
+  #define UNSAVE \
+            setEEPROMflag(SAVEFLAG, false);\
+            SERIPRINT("the SAVEFLAG has been set to 0, reboot to create new calibration data"); NEWLINE
+            
+              
   
 
 /////////////////// set faster clock ////////////////////////
@@ -208,11 +241,23 @@
                 if(seri == "reboot\n" or seri == "rr\n"){\
                 SERIPRINT("rebooting...\n");\
                 reset_AVR();}\
-                if(seri == "break\n" or seri == "bk\n" seri == "brk\n"){\
+                if(seri == "break\n" or seri == "bk\n" or seri == "brk\n"){\
                   SERIPRINT("-----------------------------------------");\
                   NEWLINE;}\
                 if(seri == "wipe\n"){\
-                wipeEEPROM();\
-                NEWLINE;}}
+                  wipeEEPROM();}\
+                if(seri == "save\n" or seri == "ss\n"){\
+                  SAVEDATA_NOW;}\
+                if(seri == "unsave\n" or seri == "uu\n"){\
+                  UNSAVE;}\
+                if(seri == "gimme\n" or seri == "gg\n"){\
+                  SERIPRINT("Saved calibration data:"); NEWLINE;\
+                  SERIPRINT("potMaxval_a: "); SERIPRINT(potMaxval_a); NEWLINE;\
+                  SERIPRINT("potMaxval_b: "); SERIPRINT(potMaxval_b); NEWLINE;\
+                  SERIPRINT("potMaxval_c: "); SERIPRINT(potMaxval_c); NEWLINE;\
+                  SERIPRINT("potMaxval_d: "); SERIPRINT(potMaxval_d); NEWLINE;\
+                  SERIPRINT("potMaxval_e: "); SERIPRINT(potMaxval_e); NEWLINE;\
+                  }\
+                }
                 
 #endif // __MOSKVA2_H__

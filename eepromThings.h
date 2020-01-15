@@ -7,7 +7,7 @@
 void wipeEEPROM(){
   for (int i = 0 ; i < EEPROM.length() ; i++) {
       EEPROM.update(i, 0);} //write 0 to address i
-  Serial.println("EEPROM wiped");}   
+  Serial.println("EEPROM has been wiped");}   
 
 static inline bool getBit (const unsigned char source, const unsigned char bitpos){ // bitpos=[0..7] [LSB..MSB]
   return ((source & (1 << bitpos)) >> bitpos)!=0;}
@@ -44,6 +44,24 @@ static inline unsigned char getEEPROMbyte (const unsigned int eepromAddr){
 }
 
 
+static inline long int getEEPROMlongint (const unsigned int eepromAddr){ // 8 bytes -> sizeof(long int)
+  if(EEPROMaddrisOK(eepromAddr)){
+      long int value;
+      EEPROM.get(eepromAddr, value);
+      return value;}
+  else{
+    /* ERROR!!! address out of range!*/}
+}
+
+static inline long int setEEPROMlongint (const unsigned int eepromAddr, const long int value){ // eepromAddr is uint16_t(unsigned int)
+    if(EEPROMaddrisOK(eepromAddr)){
+      long int oldValue;
+      EEPROM.get(eepromAddr, oldValue);
+      if(value != oldValue){ // write only if necessary
+        EEPROM.put(eepromAddr, value);}
+      return 1;}
+    else{
+      return 0;}} /* ERROR!!! address out of range!*/
 
 // (0) 1-bit EEPROMflags [0..7]
 // (0) 1-bit EEPROMflags [8..15]
