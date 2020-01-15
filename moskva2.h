@@ -1,6 +1,6 @@
 #ifndef __MOSKVA2_H__
   #define __MOSKVA2_H__
-  #define __MOSKVA2_H__VERSION 202001141655
+  #define __MOSKVA2_H__VERSION 202001151646
 
   #include "eepromThings.h"
   #define SAVEFLAG 0
