@@ -113,11 +113,11 @@
   } status_t;
 
   #define POTENTIOMETER_MAXVAL_CALIB(sensename) \
-            if(1){ SERIPRINT("CALIBRATING MAXVAL " #sensename " ..."); NEWLINE; }\
+            SERIPRINT("CALIBRATING MAXVAL " #sensename " ..."); NEWLINE;\
             for(int i = 0; i < MAXPOT_LOOPS; i++){\
                potMaxval_##sensename += touchVal_##sensename.capacitiveSensor(CAP_SAMPLES) * POTENTIOMETER_MAX_SENSE_MULT; }\
             potMaxval_##sensename /= MAXPOT_LOOPS;\
-            if(1){ SERIPRINT("max value " #sensename ":"); SERIPRINT(potMaxval_##sensename); NEWLINE; }
+            SERIPRINT("max value " #sensename ":"); SERIPRINT(potMaxval_##sensename); NEWLINE
 
   // debounce shit
   #define debounceDelay DEBOUNCE_BASE + debounceMore
