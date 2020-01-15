@@ -1,6 +1,6 @@
 #ifndef __MOSKVA2_H__
   #define __MOSKVA2_H__
-  #define __MOSKVA2_H__VERSION 202001151646
+  #define __MOSKVA2_H__VERSION 202001151659
 
   #include "eepromThings.h"
   #define SAVEFLAG 0
@@ -250,13 +250,22 @@
                   SAVEDATA_NOW;}\
                 if(seri == "unsave\n" or seri == "uu\n"){\
                   UNSAVE;}\
-                if(seri == "gimme\n" or seri == "gg\n"){\
-                  SERIPRINT("Saved calibration data:"); NEWLINE;\
+                if(seri == "gimme\n" or seri == "gc\n"){\
+                  SERIPRINT("Current calibration data:"); NEWLINE;\
                   SERIPRINT("potMaxval_a: "); SERIPRINT(potMaxval_a); NEWLINE;\
                   SERIPRINT("potMaxval_b: "); SERIPRINT(potMaxval_b); NEWLINE;\
                   SERIPRINT("potMaxval_c: "); SERIPRINT(potMaxval_c); NEWLINE;\
                   SERIPRINT("potMaxval_d: "); SERIPRINT(potMaxval_d); NEWLINE;\
                   SERIPRINT("potMaxval_e: "); SERIPRINT(potMaxval_e); NEWLINE;\
+                  }\
+                if(seri == "gimmesaved\n" or seri == "gs\n"){\
+                  SERIPRINT("The SAVEFLAG is set to: "); SERIPRINT(EEPROMflag(SAVEFLAG)); NEWLINE;\
+                  SERIPRINT("Saved calibration data:"); NEWLINE;\
+                  SERIPRINT("potMaxval_a: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_a)); NEWLINE;\
+                  SERIPRINT("potMaxval_b: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_b)); NEWLINE;\
+                  SERIPRINT("potMaxval_c: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_c)); NEWLINE;\
+                  SERIPRINT("potMaxval_d: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_d)); NEWLINE;\
+                  SERIPRINT("potMaxval_e: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_e)); NEWLINE;\
                   }\
                 }
                 

@@ -1,6 +1,6 @@
 # MOSKVA v.2
-##### v.202001112309
-##### try https://github.com/sainoky/serial_port_monitor
+##### v-202001151659
+##### Try https://github.com/sainoky/serial_port_monitor for a decent serial monitor
 
 ## Procedura di setup:
   * avvita il sensore alla piastra e alla superficie da usare, tipo la tavola di legno
@@ -23,12 +23,16 @@
   * se invii "debug-nomesensore" in serial, accende/spegne il debug per quel sensore.
     - es: debug-b
     
-## Serial monitor commands:
+## <u>Serial monitor commands:</u>
 * `debug-nomesensore` attiva/disattiva il debug per quel sensore.
   - es: `debug-b` - shorthand `db`
-* `reboot` - shorthand `rr` reboots the arduino, same as pushing the reset button or power-cycling
-* `break` - `brk` - `bk` writes a break to console "---------------------"
+* `reboot` or `rr` reboots the arduino, same as pushing the reset button or power-cycling
+* `break` or `brk` or `bk` writes a break to console "---------------------"
 * `wipe` - wipes EEPROM, initializing all to 0. _**USE WITH CAUTION**_
+* `save` or `ss` saves all calibration data to EEPROM, will be loaded as/is on next reboot
+* `unsave` or `uu` sets the saveflag to 0, so on the next reboot saved data will be ignored
+* `gimme` or `gc` shows current calibration data
+* `gimmesaved` or `gs` shows saved calibration data
 
 ## setup_moscow.h
   E' il file di settaggio per il **progetto**:
