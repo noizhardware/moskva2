@@ -36,10 +36,15 @@ void setup(){
   SAVEDATA_INIT;
 
   if(!EEPROMflag(SAVEFLAG)){
+    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(a);
+    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(b);
+    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(c);
+    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(d);
+    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(e);
   }
   

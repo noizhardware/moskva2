@@ -9,6 +9,8 @@
   #define DEBUG_MODE_c 0 // 0 or 1
   #define DEBUG_MODE_d 0 // 0 or 1
   #define DEBUG_MODE_e 0 // 0 or 1
+
+  #define DEBUG_CALIB 1
   
   //#define DEBOUNCE_ON //not used for now
 

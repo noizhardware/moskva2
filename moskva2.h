@@ -115,7 +115,10 @@
   #define POTENTIOMETER_MAXVAL_CALIB(sensename) \
             SERIPRINT("CALIBRATING MAXVAL " #sensename " ..."); NEWLINE;\
             for(int i = 0; i < MAXPOT_LOOPS; i++){\
-               potMaxval_##sensename += touchVal_##sensename.capacitiveSensor(CAP_SAMPLES) * POTENTIOMETER_MAX_SENSE_MULT; }\
+              long int temp = touchVal_##sensename.capacitiveSensor(CAP_SAMPLES) * POTENTIOMETER_MAX_SENSE_MULT;\
+              if(DEBUG_CALIB){SERIPRINT(#sensename " reading: "); SERIPRINT(temp); NEWLINE;}\
+              potMaxval_##sensename += temp;\
+              delay(200);}\
             potMaxval_##sensename /= MAXPOT_LOOPS;\
             SERIPRINT("max value " #sensename ":"); SERIPRINT(potMaxval_##sensename); NEWLINE
 
