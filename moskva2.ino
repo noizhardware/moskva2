@@ -4,6 +4,7 @@
 #include "mozg2.h"
 //#include "mozg2_proto0.h"
 
+#ifndef __MOSKVA2_INO__VERSION
 #define __MOSKVA2_INO__VERSION 202001151646
 
 CAP_INIT(a, PIN_COMMON_a,PIN_SENSE_a);
@@ -68,3 +69,5 @@ void loop(){
     LISTEN_SERIAL;
       
 }
+
+#endif // __MOSKVA2_INO__VERSION

@@ -1,6 +1,6 @@
-#ifndef __SETUP_MOSKOW_H__
-  #define __SETUP_MOSKOW_H__
-  #define __SETUP_MOSKOW_H__VERSION 202001112309
+#ifndef __SETUP_MOSCOW_H__
+  #define __SETUP_MOSCOW_H__
+  #define __SETUP_MOSCOW_H__VERSION 202001112309
 
   // project-specific bindings //
 
@@ -19,8 +19,8 @@
   //#define MAX_SENSE 100000. // max sensitivity settable by the hardware pot
 
   #define MAXPOT_LOOPS 50 // how many averaged samples for initial reading
-  #define POTENTIOMETER_MAX_SENSE_MULT 20 // for autogeneration of MAX_SENSE (potentiometer's max sentitivity value, relative to the minimum)
+  #define POTENTIOMETER_MAX_SENSE_MULT 100 // for autogeneration of MAX_SENSE (potentiometer's max sentitivity value, relative to the minimum)
 
   #define debounceMore 0 // set additional debounce time here (can be positive or negative)
 
-#endif // __SETUP_MOSKOW_H__
+#endif // __SETUP_MOSCOW_H__
