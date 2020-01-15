@@ -1,6 +1,9 @@
 #ifndef __MOSKVA2_H__
 #define __MOSKVA2_H__
-#define __MOSKVA2_H__VERSION 202001151659
+#define __MOSKVA2_H__VERSION 202001160054
+
+#include <string.h>
+#include <stdlib.h>
 
 #include "eepromThings.h"
 #define SAVEFLAG 0
@@ -12,8 +15,8 @@
 
 // TODO:
 // save-unsave single sensors
-// implement saving che fa in modo di non dover manco piu usare i pots
-// set manual MAXVAL for single sensors
+// implement saving che fa in modo di non dover manco piu usare i pots => tipo "save current pot status" LOL
+// invece di moltiplicare per generare i potmaxval_, potrei aggiungere un offset fisso? al MAX, non alla media?
 
 #define SAVEDATA_INIT \
   if(EEPROMflag(SAVEFLAG)){\
@@ -174,7 +177,17 @@ typedef struct {
 #include <avr/wdt.h>
 #define reset_AVR() wdt_enable(WDTO_15MS); while(1) {}
 
+static inline void removeSubstring (char *string, char *sub) {
+    char *match;
+    int len = strlen(sub);
+    while ((match = strstr(string, sub))) {
+        *match = '\0';
+        strcat(string, match+len);
+    }
+}
+
 #define LISTEN_SERIAL \
+  /*SERIPRINT("gona listen to serial..."); NEWLINE;*/\
   while (Serial.available () > 0){\
     String seri = Serial.readString();\
     if(seri == "debug-a\n" or seri == "da\n"){\
@@ -272,9 +285,60 @@ typedef struct {
       SERIPRINT("potMaxval_e: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_e)); NEWLINE;\
     }\
     if(seri.startsWith("max-a")){\
-    char* char_array;\
-    strcpy(char_array, seri.c_str());\
-    SERIPRINT("OK\n");}\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      long int mylong = atol(tmp);/*cast to long int*/\
+      potMaxval_a = mylong;\
+      SERIPRINT(potMaxval_a); NEWLINE;\
+      SERIPRINT("potMaxval_a successfully set to: "); SERIPRINT(potMaxval_a); NEWLINE;\
+    }\
+    if(seri.startsWith("max-b")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      long int mylong = atol(tmp);/*cast to long int*/\
+      potMaxval_b = mylong;\
+      SERIPRINT(potMaxval_b); NEWLINE;\
+      SERIPRINT("potMaxval_b successfully set to: "); SERIPRINT(potMaxval_b); NEWLINE;\
+    }\
+    if(seri.startsWith("max-c")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      long int mylong = atol(tmp);/*cast to long int*/\
+      potMaxval_c = mylong;\
+      SERIPRINT(potMaxval_c); NEWLINE;\
+      SERIPRINT("potMaxval_c successfully set to: "); SERIPRINT(potMaxval_c); NEWLINE;\
+    }\
+    if(seri.startsWith("max-d")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      long int mylong = atol(tmp);/*cast to long int*/\
+      potMaxval_d = mylong;\
+      SERIPRINT(potMaxval_d); NEWLINE;\
+      SERIPRINT("potMaxval_d successfully set to: "); SERIPRINT(potMaxval_d); NEWLINE;\
+    }\
+    if(seri.startsWith("max-e")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      long int mylong = atol(tmp);/*cast to long int*/\
+      potMaxval_e = mylong;\
+      SERIPRINT(potMaxval_e); NEWLINE;\
+      SERIPRINT("potMaxval_e successfully set to: "); SERIPRINT(potMaxval_e); NEWLINE;\
+    }\
   }
 
 #endif // __MOSKVA2_H__
