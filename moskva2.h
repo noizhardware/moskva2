@@ -1,12 +1,15 @@
 #ifndef __MOSKVA2_H__
 #define __MOSKVA2_H__
-#define __MOSKVA2_H__VERSION 202001160054
+#define __MOSKVA2_H__VERSION 202001160133
 
 #include <string.h>
 #include <stdlib.h>
 
 #include "eepromThings.h"
+// FLAGS
 #define SAVEFLAG 0
+#define AUTOCALFLAG 1
+// DATA
 #define SAVEADDRESS_a 4
 #define SAVEADDRESS_b 12 // 8bytes each (for long ints)
 #define SAVEADDRESS_c 20
@@ -17,6 +20,7 @@
 // save-unsave single sensors
 // implement saving che fa in modo di non dover manco piu usare i pots => tipo "save current pot status" LOL
 // invece di moltiplicare per generare i potmaxval_, potrei aggiungere un offset fisso? al MAX, non alla media?
+// mettere la possibilità di disattivare autocal (touchVal_a.set_CS_AutocaL) da terminal?
 
 #define SAVEDATA_INIT \
   if(EEPROMflag(SAVEFLAG)){\
@@ -283,6 +287,18 @@ static inline void removeSubstring (char *string, char *sub) {
       SERIPRINT("potMaxval_c: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_c)); NEWLINE;\
       SERIPRINT("potMaxval_d: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_d)); NEWLINE;\
       SERIPRINT("potMaxval_e: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_e)); NEWLINE;\
+      if(EEPROMflag(AUTOCALFLAG)){\
+        SERIPRINT("AUTOCAL on boot is ON"); NEWLINE;}\
+      else{\
+        SERIPRINT("AUTOCAL on boot is OFF"); NEWLINE;}\
+    }\
+    if(seri == "autocal\n" or seri == "ac\n"){\
+      setEEPROMflag(AUTOCALFLAG, true);\
+      SERIPRINT("AUTOCAL on boot set to ON"); NEWLINE;\
+    }\
+    if(seri == "noautocal\n" or seri == "nac\n"){\
+      setEEPROMflag(AUTOCALFLAG, false);\
+      SERIPRINT("AUTOCAL on boot set to OFF"); NEWLINE;\
     }\
     if(seri.startsWith("max-a")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
