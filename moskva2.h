@@ -1,6 +1,6 @@
 #ifndef __MOSKVA2_H__
 #define __MOSKVA2_H__
-#define __MOSKVA2_H__VERSION 202001160133
+#define __MOSKVA2_H__VERSION 202001161413
 
 #include <string.h>
 #include <stdlib.h>
@@ -145,6 +145,7 @@ typedef struct {
 
 // debounce shit
 #define debounceDelay DEBOUNCE_BASE + debounceMore
+#define debounceDelay_pre DEBOUNCE_PRE + debounceMore_pre
 
 #define PINLOOP(sensename) \
   \
@@ -163,30 +164,52 @@ typedef struct {
       sense_##sensename.current = ON; }\
   else{\
     sense_##sensename.current = OFF; } /* sensor status has been read and stored*/\
-  \
-  if(sense_##sensename.debounce){ /* if debounce is running */\
-    if(sense_##sensename.current){ RESTART(sense_##sensename.debounceTimer); } /* if there is pressure on the sensor, restart debounceTimer */\
-    if(NOW >= (sense_##sensename.debounceTimer + debounceDelay)){ /* if debounceTime has expired - CACCA è qui il debounce*/\
-      sense_##sensename.debounce = OFF; /* turn it off! */\
-    } \
-    if(change(sense_##sensename.last, sense_##sensename.current)){ sense_##sensename.changeBuffer = ON; } /* store if there has been a pin status change */\
-  } \
-  else{ /* if debounce is NOT running */\
-    if(sense_##sensename.current){  /* key pressed */\
-      sense_##sensename.debounce = ON; /* store debounce status ON */\
-      RESTART(sense_##sensename.debounceTimer); /* start debounce timer */\
-      SERIPRINT(#sensename); /* print status change to serial */\
-      SERIPRINT("-");\
-      SERIPRINT(ON); NEWLINE;\
-      digitalWrite(LED_##sensename, ON); /* and to status LED */\
-      if(change(sense_##sensename.last, sense_##sensename.current)){ sense_##sensename.changeBuffer = ON; }} /* store if there has been a pin status change */\
-    else{                          /* key NOT pressed */\
-      if((change(sense_##sensename.current, sense_##sensename.last)) || sense_##sensename.changeBuffer){/* was it pressed before? */\
-        SERIPRINT(#sensename);\
-        SERIPRINT("-");\
-        SERIPRINT(OFF); NEWLINE;\
-        digitalWrite(LED_##sensename, OFF);\
-        sense_##sensename.changeBuffer = OFF; }}}
+  /*DEBOUNCE PRE starts here*/\
+  if(sense_##sensename.debounce_pre){\
+    if(sense_##sensename.current){\
+      if(NOW >= (sense_##sensename.debounceTimer_pre + debounceDelay_pre)){/*timer-pre is fulfilled (bao)*/\
+        if(sense_##sensename.debounce){ /* if debounce is running */\
+          if(sense_##sensename.current){ RESTART(sense_##sensename.debounceTimer); } /* if there is pressure on the sensor, restart debounceTimer */\
+          if(NOW >= (sense_##sensename.debounceTimer + debounceDelay)){ /* if debounceTime has expired - CACCA è qui il debounce*/\
+            sense_##sensename.debounce = OFF; /* turn it off! */\
+          } \
+          if(change(sense_##sensename.last, sense_##sensename.current)){ sense_##sensename.changeBuffer = ON; } /* store if there has been a pin status change */\
+        } \
+      else{ /* if debounce is NOT running */\
+        if(sense_##sensename.current){  /* key pressed */\
+          sense_##sensename.debounce = ON; /* store debounce status ON */\
+          RESTART(sense_##sensename.debounceTimer); /* start debounce timer */\
+          SERIPRINT(#sensename); /* print status change to serial */\
+          SERIPRINT("-");\
+          SERIPRINT(ON); NEWLINE;\
+          digitalWrite(LED_##sensename, ON); /* and to status LED */\
+          if(change(sense_##sensename.last, sense_##sensename.current)){ sense_##sensename.changeBuffer = ON; }} /* store if there has been a pin status change */\
+        else{                          /* key NOT pressed */\
+          if((change(sense_##sensename.current, sense_##sensename.last)) || sense_##sensename.changeBuffer){/* was it pressed before? */\
+            SERIPRINT(#sensename);\
+            SERIPRINT("-");\
+            SERIPRINT(OFF); NEWLINE;\
+            digitalWrite(LED_##sensename, OFF);\
+            sense_##sensename.changeBuffer = OFF; }}}/*here ends the post-debounce block*/\
+      }}\
+      else{\
+        RESTART(sense_##sensename.debounceTimer_pre);\
+        /*cacca - qui debounce-pre spegne il led*/\
+        if((change(sense_##sensename.current, sense_##sensename.last)) || sense_##sensename.changeBuffer){/* was it pressed before? */\
+            SERIPRINT(#sensename);\
+            SERIPRINT("-");\
+            SERIPRINT(OFF); NEWLINE;\
+            digitalWrite(LED_##sensename, OFF);\
+            sense_##sensename.changeBuffer = OFF;\
+            sense_##sensename.debounce = OFF; }\
+      }\
+  }\
+  else{\
+    if(sense_##sensename.current){\
+      RESTART(sense_##sensename.debounceTimer_pre);\
+      sense_##sensename.debounce_pre = ON;}}\
+  /*DEBOUNCE PRE ends here*/\
+  
 
 
 

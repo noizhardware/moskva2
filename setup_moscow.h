@@ -1,6 +1,6 @@
 #ifndef __SETUP_MOSCOW_H__
   #define __SETUP_MOSCOW_H__
-  #define __SETUP_MOSCOW_H__VERSION 202001160054
+  #define __SETUP_MOSCOW_H__VERSION 202001161413
 
   // project-specific bindings //
 
@@ -22,5 +22,6 @@
   #define POTENTIOMETER_MAX_SENSE_MULT 100 // for autogeneration of MAX_SENSE (potentiometer's max sentitivity value, relative to the minimum)
 
   #define debounceMore 0 // set additional debounce time here (can be positive or negative)
+  #define debounceMore_pre 0 // set additional PRE debounce time here (can be positive or negative)
 
 #endif // __SETUP_MOSCOW_H__
