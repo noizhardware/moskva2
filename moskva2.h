@@ -262,7 +262,7 @@ static inline void removeSubstring (char *string, char *sub) {
     if(seri == "reboot\n" or seri == "rr\n"){\
       SERIPRINT("rebooting...\n");\
       reset_AVR();}\
-    if(seri == "break\n" or seri == "bk\n" or seri == "brk\n"){\
+    if(seri == "break\n" or seri == "br\n" or seri == "brk\n"){\
       SERIPRINT("-----------------------------------------");\
       NEWLINE;}\
     if(seri == "wipe\n"){\

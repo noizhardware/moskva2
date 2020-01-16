@@ -27,7 +27,7 @@
 * `debug-nomesensore` attiva/disattiva il debug per quel sensore.
   - es: `debug-b` - shorthand `db`
 * `reboot` or `rr` reboots the arduino, same as pushing the reset button or power-cycling
-* `break` or `brk` or `bk` writes a break to console "---------------------"
+* `break` or `brk` or `br` writes a break to console "---------------------"
 * `wipe` - wipes EEPROM, initializing all to 0. _**USE WITH CAUTION**_
 * `save` or `ss` saves all calibration data to EEPROM, will be loaded as/is on next reboot
 * `unsave` or `uu` sets the saveflag to 0, so on the next reboot saved data will be ignored
