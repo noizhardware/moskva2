@@ -77,7 +77,7 @@ CapacitiveSensor::CapacitiveSensor(uint8_t sendPin, uint8_t receivePin)
 // Public Methods //////////////////////////////////////////////////////////////
 // Functions available in Wiring sketches, this library, and other libraries
 
-long CapacitiveSensor::capacitiveSensor(uint8_t samples)
+long CapacitiveSensor::capacitiveSensor(uint8_t samples) // autocalibration is here - CACCA
 {
 	total = 0;
 	if (samples == 0) return 0;
