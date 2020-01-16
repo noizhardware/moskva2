@@ -89,7 +89,7 @@
     if(seri == "unsave\n" or seri == "uu\n"){\
       UNSAVE;}\
     if(seri == "gimme\n" or seri == "gc\n"){\
-      SERIPRINT("Current calibration data:"); NEWLINE;\
+      SERIPRINT("Current maxVal calibration data:"); NEWLINE;\
       SERIPRINT("potMaxval_a: "); SERIPRINT(potMaxval_a); NEWLINE;\
       SERIPRINT("potMaxval_b: "); SERIPRINT(potMaxval_b); NEWLINE;\
       SERIPRINT("potMaxval_c: "); SERIPRINT(potMaxval_c); NEWLINE;\
@@ -98,24 +98,24 @@
     }\
     if(seri == "gimmesaved\n" or seri == "gs\n"){\
       SERIPRINT("The SAVEFLAG is set to: "); SERIPRINT(EEPROMflag(SAVEFLAG)); NEWLINE;\
-      SERIPRINT("Saved calibration data:"); NEWLINE;\
+      SERIPRINT("Saved maxVal calibration data:"); NEWLINE;\
       SERIPRINT("potMaxval_a: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_a)); NEWLINE;\
       SERIPRINT("potMaxval_b: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_b)); NEWLINE;\
       SERIPRINT("potMaxval_c: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_c)); NEWLINE;\
       SERIPRINT("potMaxval_d: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_d)); NEWLINE;\
       SERIPRINT("potMaxval_e: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_e)); NEWLINE;\
       if(EEPROMflag(AUTOCALFLAG)){\
-        SERIPRINT("AUTOCAL on boot is ON"); NEWLINE;}\
+        SERIPRINT("CapacitiveSensor library AUTOCAL on boot is ON"); NEWLINE;}\
       else{\
-        SERIPRINT("AUTOCAL on boot is OFF"); NEWLINE;}\
+        SERIPRINT("CapacitiveSensor library AUTOCAL on boot is OFF"); NEWLINE;}\
     }\
     if(seri == "autocal\n" or seri == "ac\n"){\
       setEEPROMflag(AUTOCALFLAG, true);\
-      SERIPRINT("AUTOCAL on boot set to ON"); NEWLINE;\
+      SERIPRINT("CapacitiveSensor library AUTOCAL on boot set to ON"); NEWLINE;\
     }\
     if(seri == "noautocal\n" or seri == "nac\n"){\
       setEEPROMflag(AUTOCALFLAG, false);\
-      SERIPRINT("AUTOCAL on boot set to OFF"); NEWLINE;\
+      SERIPRINT("CapacitiveSensor library AUTOCAL on boot set to OFF"); NEWLINE;\
     }\
     if(seri.startsWith("max-a")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\

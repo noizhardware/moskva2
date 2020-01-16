@@ -135,11 +135,12 @@ typedef struct {
 
 #define POTENTIOMETER_MAXVAL_CALIB(sensename) \
   SERIPRINT("CALIBRATING MAXVAL " #sensename " ..."); NEWLINE;\
+  delay(MAXVAL_CALIB_INIT_DELAY);\
   for(int i = 0; i < MAXPOT_LOOPS; i++){\
     long int temp = touchVal_##sensename.capacitiveSensor(CAP_SAMPLES);\
     if(DEBUG_CALIB){SERIPRINT(#sensename " reading: "); SERIPRINT(temp); NEWLINE;}\
     potMaxval_##sensename += temp * POTENTIOMETER_MAX_SENSE_MULT;\
-    delay(CALIB_DELAY);}\
+    delay(MAXVAL_CALIB_DELAY);}\
   potMaxval_##sensename /= MAXPOT_LOOPS;\
   SERIPRINT("max value " #sensename ":"); SERIPRINT(potMaxval_##sensename); NEWLINE
 

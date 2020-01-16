@@ -191,7 +191,7 @@ int CapacitiveSensor::SenseOneCycle(void)
 	while ( DIRECT_READ(rReg, rBit) && (total < CS_Timeout_Millis) ) {  // while receive pin is HIGH  AND total is less than timeout
 		total++;
 	}
-  interrupts(); //CACCA: eliminare sta riga se fà merda
+  //interrupts(); //CACCA: eliminare sta riga se fà merda
 #endif
 	//Serial.print("SenseOneCycle(2): ");
 	//Serial.println(total);
