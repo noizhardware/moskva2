@@ -33,6 +33,12 @@
 * `unsave` or `uu` sets the saveflag to 0, so on the next reboot saved data will be ignored
 * `gimme` or `gc` shows current calibration data
 * `gimmesaved` or `gs` shows saved calibration data
+* `autocal` or `ac`
+* `noautocal` or `nac`
+* `max-sensorname customvalue`
+  - example: `max-b 10000`
+* `pot-sensorname customvalue`
+  - example: `pot-c 5438`
 
 ## setup_moscow.h
   E' il file di settaggio per il **progetto**:
