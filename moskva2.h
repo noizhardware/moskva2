@@ -34,7 +34,7 @@
 
 #define SAVEDATA_INIT \
   if(EEPROMflag(SAVEFLAG)){\
-    SERIPRINT("Loading saved calibration data...");\
+    SERIPRINT("Loading maxVal saved calibration data...");\
     potMaxval_a = getEEPROMlongint(SAVEADDRESS_a);\
     potMaxval_b = getEEPROMlongint(SAVEADDRESS_b);\
     potMaxval_c = getEEPROMlongint(SAVEADDRESS_c);\
