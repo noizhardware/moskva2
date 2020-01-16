@@ -22,17 +22,25 @@ void setup(){
   pinMode(LED_c, OUTPUT);
   pinMode(LED_d, OUTPUT);
   pinMode(LED_e, OUTPUT);
+  
+  LIGHTSHOW;                   
+  
+  SERIALBOOT;
 
+  SAVEDATA_INIT;
 
   if(!EEPROMflag(AUTOCALFLAG)){ // turn off autocalibrate if AUTOCALFLAG says so
+    SERIPRINT("CapacitiveSensor autocalibration is OFF\n");
     touchVal_a.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_a
     touchVal_b.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_b
     touchVal_c.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_c
     touchVal_d.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_d
     touchVal_e.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_e
+  }else{
+    SERIPRINT("CapacitiveSensor autocalibration is ON\n");
   }
  
-  
+  /*
   #ifndef AUTOCAL
     touchVal_a.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_a
     touchVal_b.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_b
@@ -40,30 +48,16 @@ void setup(){
     touchVal_d.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_d
     touchVal_e.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_e
   #endif
+  */
 
-  
-
-  LIGHTSHOW;                   
-  
-  SERIALBOOT;
-
-  SAVEDATA_INIT;
-
-  if(!EEPROMflag(SAVEFLAG)){
-    //delay(5000);
+  if(!EEPROMflag(SAVEFLAG)){ // autocalib maxVals, if not already saved
     POTENTIOMETER_MAXVAL_CALIB(a);
-    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(b);
-    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(c);
-    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(d);
-    //delay(5000);
     POTENTIOMETER_MAXVAL_CALIB(e);
   }
   
-
-
   digitalWrite(LED_BUILTIN, 0); delay(300); digitalWrite(LED_BUILTIN, 1);
   SERIPRINT("READY\n");
 
@@ -71,8 +65,6 @@ void setup(){
 
 void loop(){
 
-  
-  
     PINLOOP(a);
     PINLOOP(b);
     PINLOOP(c);
