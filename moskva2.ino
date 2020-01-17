@@ -7,7 +7,7 @@
 //#include "mozg2_proto0.h"
 
 #ifndef __MOSKVA2_INO__VERSION
-#define __MOSKVA2_INO__VERSION 202001171535
+#define __MOSKVA2_INO__VERSION 202001172036
 
 CAP_INIT(a, PIN_COMMON_a,PIN_SENSE_a);
 CAP_INIT(b, PIN_COMMON_b,PIN_SENSE_b);
@@ -74,7 +74,7 @@ void loop(){
     PINLOOP(e);
     
     LISTEN_SERIAL;
-    delay(500); //added safety: time-separation between capacitive sensing and serial transmission
+    //delay(500); //added safety: time-separation between capacitive sensing and serial transmission (doesn't work with SMOOTHING on!)
       
 }
 

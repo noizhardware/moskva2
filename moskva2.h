@@ -1,6 +1,6 @@
 #ifndef __MOSKVA2_H__
 #define __MOSKVA2_H__
-#define __MOSKVA2_H__VERSION 202001171535
+#define __MOSKVA2_H__VERSION 202001172036
 
 #include <string.h>
 #include <stdlib.h>
@@ -31,7 +31,6 @@
 // implement saving che fa in modo di non dover manco piu usare i pots => tipo "save current pot status" LOL
 // invece di moltiplicare per generare i potmaxval_, potrei aggiungere un offset fisso? al MAX, non alla media?
 // è possibile slavare i dati di autocal interni a readTouch? (readTouch::readTouch)
-// implement smoothing (from library example sketch)
 
 #ifndef F
   #define F(string_literal) (reinterpret_cast<const __FlashStringHelper*>(PSTR(string_literal)))
@@ -117,7 +116,8 @@ bool debug_e = DEBUG_MODE_e;
 // with Paul Badger's library: 
 #define CAP_INIT(sensorname, COMMONPIN, SENSEPIN) \
   CapTouch touchVal_##sensorname = CapTouch(COMMONPIN,SENSEPIN);\
-  long int potMaxval_##sensorname = 0;
+  long int potMaxval_##sensorname = 0;\
+  float smooth_##sensorname = 0;
 
 
 #define change(a, b) (a != b)
@@ -160,12 +160,27 @@ typedef struct {
 #define debounceDelay DEBOUNCE_BASE + debounceMore
 #define debounceDelay_pre DEBOUNCE_PRE + debounceMore_pre
 
+// simple lowpass filter
+// requires recycling the output in the "smoothedVal" param
+static inline float smooth(float data, float filterVal, float smoothedVal){
+  if (filterVal > 1){      // check to make sure param's are within range
+    filterVal = .99;}
+  else if (filterVal <= 0){
+    filterVal = 0;}
+
+  smoothedVal = (data * (1 - filterVal)) + (smoothedVal  *  filterVal);
+
+  return smoothedVal;
+}
+
 #define PINLOOP(sensename) \
   \
-  long int senseValNow_##sensename = touchVal_##sensename.readTouch(CAP_SAMPLES);/*cacca - only actual reading of sensor here*/\
+  float senseValNow_##sensename = touchVal_##sensename.readTouch(CAP_SAMPLES);/*cacca - only actual reading of sensor here*/\
+  if(SMOOTHING_##sensename){smooth_##sensename = smooth(senseValNow_##sensename, ##sensename, smooth_##sensename);}\
   /*if(EEPROMflag(POT_A_SAVED)){}*/ /*CACCA qui devo implementare il salvataggio del valore totale del pot*/\
   if(debug_##sensename){ /* print raw values to serial */\
-    SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT(senseValNow_##sensename); TAB; TAB;\
+    if(SMOOTHING_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT(smooth_##sensename); TAB; TAB;}\
+    else{SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT(senseValNow_##sensename); TAB; TAB;}\
     SERIPRINT_CONST("p"); SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT( ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) );\
     TAB; TAB; SERIPRINT_CONST("debounce: ");\
     if(sense_##sensename.debounce){\
@@ -174,14 +189,20 @@ typedef struct {
       SERIPRINT_CONST("off");}\
     NEWLINE;}\
   /*from here begins the actual reading and debounce: */\
-  if(senseValNow_##sensename >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading here */\
+  if(SMOOTHING_##sensename){\
+    if(smooth_##sensename >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading and comparation here */\
+        sense_##sensename.current = ON;\   
+    if(DEBUG_ORDER_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(" sensor triggering"); NEWLINE;}}\
+    else{\
+      sense_##sensename.current = OFF; } /* sensor status has been read and stored*/\
+  }else{\
+    if(senseValNow_##sensename >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading and comparation here */\
       sense_##sensename.current = ON;\   
-  if(DEBUG_ORDER_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(" sensor triggering"); NEWLINE;\
-      /*digitalWrite(LED_##sensename, ON);*/\
-      }\
-  }\
-  else{\
+      if(DEBUG_ORDER_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(" sensor triggering"); NEWLINE;}}\
+    else{\
     sense_##sensename.current = OFF; } /* sensor status has been read and stored*/\
+  }\
+  \
   /*DEBOUNCE PRE starts here*/\
   if(sense_##sensename.debounce_pre){\
     if(sense_##sensename.current){\

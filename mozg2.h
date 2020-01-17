@@ -2,7 +2,7 @@
 
 #ifndef __MOZG2_H__
   #define __MOZG2_H__
-  #define __MOZG2_H__VERSION 202001161413
+  #define __MOZG2_H__VERSION 202001172036
 
   #define CAP_SAMPLES 10 // capacitive sensor accuracy, tradeoff: the higher the more accurate, the lower the faster (default was 30)
   

@@ -1,6 +1,6 @@
 #ifndef __LISTEN_SERIAL_H__
   #define __LISTEN_SERIAL_H__
-  #define  __LISTEN_SERIAL_H__VERSION 202001171535
+  #define  __LISTEN_SERIAL_H__VERSION 202001172036
 
 #define BRK \
   if(Serial.readString() == "brk\n"){\

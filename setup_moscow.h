@@ -1,6 +1,6 @@
 #ifndef __SETUP_MOSCOW_H__
   #define __SETUP_MOSCOW_H__
-  #define __SETUP_MOSCOW_H__VERSION 202001171535
+  #define __SETUP_MOSCOW_H__VERSION 202001172036
 
   // project-specific bindings //
 
@@ -20,6 +20,18 @@
   #define DEBUG_ORDER_c 0 // 0 or 1
   #define DEBUG_ORDER_d 0 // 0 or 1
   #define DEBUG_ORDER_e 0 // 0 or 1
+
+  #define SMOOTHING_a 1
+  #define SMOOTHING_b 1
+  #define SMOOTHING_c 1
+  #define SMOOTHING_d 1
+  #define SMOOTHING_e 1
+
+  #define smoothFactor_a .50
+  #define smoothFactor_b .50
+  #define smoothFactor_c .50
+  #define smoothFactor_d .50
+  #define smoothFactor_e .50
 
   
   //#define DEBOUNCE_ON //not used for now
