@@ -31,6 +31,7 @@
 // implement saving che fa in modo di non dover manco piu usare i pots => tipo "save current pot status" LOL
 // invece di moltiplicare per generare i potmaxval_, potrei aggiungere un offset fisso? al MAX, non alla media?
 // è possibile slavare i dati di autocal interni a readTouch? (readTouch::readTouch)
+// implement smoothing (from library example sketch)
 
 #ifndef F
   #define F(string_literal) (reinterpret_cast<const __FlashStringHelper*>(PSTR(string_literal)))

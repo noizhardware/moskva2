@@ -59,7 +59,7 @@ void setup(){
     POTENTIOMETER_MAXVAL_CALIB(d);
     POTENTIOMETER_MAXVAL_CALIB(e);
   }
-  
+
   digitalWrite(LED_BUILTIN, 0); delay(300); digitalWrite(LED_BUILTIN, 1);
   SERIPRINT_CONST("READY\n");
 

@@ -188,7 +188,7 @@ long CapTouch::calibrateTouch(uint8_t samples){
     {   Serial.print("total = ");
 		Serial.print(total);
 		baselineR = total / j;
-		Serial.print(" baselineR = ");
+		Serial.print(" | baselineR = ");
 		Serial.println(baselineR);
     }
 	
