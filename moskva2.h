@@ -161,18 +161,19 @@ typedef struct {
 
 #define PINLOOP(sensename) \
   \
-  if(EEPROMflag(POT_A_SAVED)){} /*CACCA qui devo implementare il salvataggio del valore totale del pot*/\
+  long int senseValNow_##sensename = touchVal_##sensename.readTouch(CAP_SAMPLES);/*cacca - only actual reading of sensor here*/\
+  /*if(EEPROMflag(POT_A_SAVED)){}*/ /*CACCA qui devo implementare il salvataggio del valore totale del pot*/\
   if(debug_##sensename){ /* print raw values to serial */\
-    SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT(touchVal_##sensename.readTouch(CAP_SAMPLES)); TAB; TAB;\
+    SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT(senseValNow_##sensename); TAB; TAB;\
     SERIPRINT_CONST("p"); SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT( ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) );\
-    TAB; TAB; SERIPRINT_CONST("debounce:");\
+    TAB; TAB; SERIPRINT_CONST("debounce: ");\
     if(sense_##sensename.debounce){\
       SERIPRINT_CONST("ON");}\
     else{\
       SERIPRINT_CONST("off");}\
     NEWLINE;}\
-  /*from here begins actual reading and debounce: */\
-  if(touchVal_##sensename.readTouch(CAP_SAMPLES) >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading here */\
+  /*from here begins the actual reading and debounce: */\
+  if(senseValNow_##sensename >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading here */\
       sense_##sensename.current = ON;\   
   if(DEBUG_ORDER_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(" sensor triggering"); NEWLINE;\
       /*digitalWrite(LED_##sensename, ON);*/\
