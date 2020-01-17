@@ -1,6 +1,6 @@
 #ifndef __SETUP_MOSCOW_H__
   #define __SETUP_MOSCOW_H__
-  #define __SETUP_MOSCOW_H__VERSION 202001161413
+  #define __SETUP_MOSCOW_H__VERSION 202001171535
 
   // project-specific bindings //
 

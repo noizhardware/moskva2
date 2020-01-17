@@ -4,10 +4,10 @@
   #define __MOZG2_H__
   #define __MOZG2_H__VERSION 202001161413
 
-  #define CAP_SAMPLES 10 // capacitive sensor accuracy, tradeoff: the higher the more accurate, the lower the faster (default was 30)
+  #define CAP_SAMPLES 15 // capacitive sensor accuracy, tradeoff: the higher the more accurate, the lower the faster (default was 30)
   
   #define DEBOUNCE_BASE 150 // set hardware-bound global debounce time here
-  #define DEBOUNCE_PRE 800// time it waits before saying "it's a trigger!"
+  #define DEBOUNCE_PRE 500// time it waits before saying "it's a trigger!"
   
   // create status objects for 5 sensors
   status_t sense_a;

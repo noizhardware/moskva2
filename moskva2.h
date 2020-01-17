@@ -1,6 +1,6 @@
 #ifndef __MOSKVA2_H__
 #define __MOSKVA2_H__
-#define __MOSKVA2_H__VERSION 202001161413
+#define __MOSKVA2_H__VERSION 202001171535
 
 #include <string.h>
 #include <stdlib.h>
@@ -30,7 +30,7 @@
 // save-unsave single sensors
 // implement saving che fa in modo di non dover manco piu usare i pots => tipo "save current pot status" LOL
 // invece di moltiplicare per generare i potmaxval_, potrei aggiungere un offset fisso? al MAX, non alla media?
-// è possibile slavare i dati di autocal interni a CapacitiveSensor? (CapacitiveSensor::capacitiveSensor)
+// è possibile slavare i dati di autocal interni a readTouch? (readTouch::readTouch)
 
 #ifndef F
   #define F(string_literal) (reinterpret_cast<const __FlashStringHelper*>(PSTR(string_literal)))
@@ -106,9 +106,16 @@ bool debug_e = DEBUG_MODE_e;
 
 #define TAB SERIPRINT(F("\t"))
 
-// the function is defined as: long CapacitiveSensor::capacitiveSensor(uint8_t samples)
+/*
+// the function is defined as: long readTouch::readTouch(uint8_t samples)
 #define CAP_INIT(sensorname, COMMONPIN, SENSEPIN) \
-  CapacitiveSensor touchVal_##sensorname = CapacitiveSensor(COMMONPIN,SENSEPIN);\
+  readTouch touchVal_##sensorname = readTouch(COMMONPIN,SENSEPIN);\
+  long int potMaxval_##sensorname = 0;
+  */
+
+// with Paul Badger's library: 
+#define CAP_INIT(sensorname, COMMONPIN, SENSEPIN) \
+  CapTouch touchVal_##sensorname = CapTouch(COMMONPIN,SENSEPIN);\
   long int potMaxval_##sensorname = 0;
 
 
@@ -141,7 +148,7 @@ typedef struct {
   SERIPRINT_CONST("CALIBRATING MAXVAL " #sensename " ..."); NEWLINE;\
   delay(MAXVAL_CALIB_INIT_DELAY);\
   for(int i = 0; i < MAXPOT_LOOPS; i++){\
-    long int temp = touchVal_##sensename.capacitiveSensor(CAP_SAMPLES);\
+    long int temp = touchVal_##sensename.readTouch(CAP_SAMPLES);\
     if(DEBUG_CALIB){SERIPRINT(#sensename " reading: "); SERIPRINT(temp); NEWLINE;}\
     potMaxval_##sensename += temp * POTENTIOMETER_MAX_SENSE_MULT;\
     delay(MAXVAL_CALIB_DELAY);}\
@@ -156,7 +163,7 @@ typedef struct {
   \
   if(EEPROMflag(POT_A_SAVED)){} /*CACCA qui devo implementare il salvataggio del valore totale del pot*/\
   if(debug_##sensename){ /* print raw values to serial */\
-    SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT(touchVal_##sensename.capacitiveSensor(CAP_SAMPLES)); TAB; TAB;\
+    SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT(touchVal_##sensename.readTouch(CAP_SAMPLES)); TAB; TAB;\
     SERIPRINT_CONST("p"); SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT( ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) );\
     TAB; TAB; SERIPRINT_CONST("debounce:");\
     if(sense_##sensename.debounce){\
@@ -165,7 +172,7 @@ typedef struct {
       SERIPRINT_CONST("off");}\
     NEWLINE;}\
   /*from here begins actual reading and debounce: */\
-  if(touchVal_##sensename.capacitiveSensor(CAP_SAMPLES) >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading here */\
+  if(touchVal_##sensename.readTouch(CAP_SAMPLES) >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading here */\
       sense_##sensename.current = ON;\   
   if(DEBUG_ORDER_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(" sensor triggering"); NEWLINE;\
       /*digitalWrite(LED_##sensename, ON);*/\
