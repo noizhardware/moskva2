@@ -20,9 +20,9 @@
         debug_a = 1;\
         SERIPRINT_CONST("debug A is ON");\
         NEWLINE;\
-        SERIPRINT_CONST("maxVal for A is: ");\
+        /*SERIPRINT_CONST("maxVal for A is: ");\
         SERIPRINT(potMaxval_a);\
-        NEWLINE;\
+        NEWLINE;*/\
       }}\
     if(seri == "debug-b\n" or seri == "db\n"){\
       if(debug_b){\
@@ -33,9 +33,9 @@
         debug_b = 1;\
         SERIPRINT_CONST("debug B is ON");\
         NEWLINE;\
-        SERIPRINT_CONST("maxVal for B is: ");\
+        /*SERIPRINT_CONST("maxVal for B is: ");\
         SERIPRINT(potMaxval_b);\
-        NEWLINE;\
+        NEWLINE;*/\
       }}\
     if(seri == "debug-c\n" or seri == "dc\n"){\
       if(debug_c){\
@@ -46,9 +46,9 @@
         debug_c = 1;\
         SERIPRINT_CONST("debug C is ON");\
         NEWLINE;\
-        SERIPRINT_CONST("maxVal for C is: ");\
+        /*SERIPRINT_CONST("maxVal for C is: ");\
         SERIPRINT(potMaxval_c);\
-        NEWLINE;\
+        NEWLINE;*/\
       }}\
     if(seri == "debug-d\n" or seri == "dd\n"){\
       if(debug_d){\
@@ -59,9 +59,9 @@
         debug_d = 1;\
         SERIPRINT_CONST("debug D is ON");\
         NEWLINE;\
-        SERIPRINT_CONST("maxVal for D is: ");\
+        /*SERIPRINT_CONST("maxVal for D is: ");\
         SERIPRINT(potMaxval_d);\
-        NEWLINE;\
+        NEWLINE;*/\
       }}\
     if(seri == "debug-e\n" or seri == "de\n"){\
       if(debug_e){\
@@ -72,9 +72,9 @@
         debug_e = 1;\
         SERIPRINT_CONST("debug E is ON");\
         NEWLINE;\
-        SERIPRINT_CONST("maxVal for E is: ");\
+        /*SERIPRINT_CONST("maxVal for E is: ");\
         SERIPRINT(potMaxval_e);\
-        NEWLINE;\
+        NEWLINE;*/\
       }}\
     if(seri == "reboot\n" or seri == "rr\n"){\
       SERIPRINT_CONST("rebooting...\n");\

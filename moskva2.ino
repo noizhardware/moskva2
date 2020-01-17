@@ -74,6 +74,7 @@ void loop(){
     PINLOOP(e);
     
     LISTEN_SERIAL;
+    delay(500); //added safety: time-separation between capacitive sensing and serial transmission
       
 }
 
