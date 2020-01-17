@@ -29,8 +29,7 @@
 // TODO:
 // save-unsave single sensors
 // implement saving che fa in modo di non dover manco piu usare i pots => tipo "save current pot status" LOL
-// invece di moltiplicare per generare i potmaxval_, potrei aggiungere un offset fisso? al MAX, non alla media?
-// è possibile slavare i dati di autocal interni a readTouch? (readTouch::readTouch)
+// salvare le baselineR interne a CapTouch
 
 #ifndef F
   #define F(string_literal) (reinterpret_cast<const __FlashStringHelper*>(PSTR(string_literal)))
@@ -176,7 +175,7 @@ static inline float smooth(float data, float filterVal, float smoothedVal){
 #define PINLOOP(sensename) \
   \
   float senseValNow_##sensename = touchVal_##sensename.readTouch(CAP_SAMPLES);/*cacca - only actual reading of sensor here*/\
-  if(SMOOTHING_##sensename){smooth_##sensename = smooth(senseValNow_##sensename, ##sensename, smooth_##sensename);}\
+  if(SMOOTHING_##sensename){smooth_##sensename = smooth(senseValNow_##sensename, smoothFactor_##sensename, smooth_##sensename);}\
   /*if(EEPROMflag(POT_A_SAVED)){}*/ /*CACCA qui devo implementare il salvataggio del valore totale del pot*/\
   if(debug_##sensename){ /* print raw values to serial */\
     if(SMOOTHING_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(":"); SERIPRINT(smooth_##sensename); TAB; TAB;}\
