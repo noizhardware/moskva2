@@ -30,14 +30,14 @@ void setup(){
   SAVEDATA_INIT;
 
   if(!EEPROMflag(AUTOCALFLAG)){ // turn off autocalibrate if AUTOCALFLAG says so
-    SERIPRINT("CapacitiveSensor autocalibration is OFF\n");
+    SERIPRINT_CONST("CapacitiveSensor autocalibration is OFF\n");
     touchVal_a.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_a
     touchVal_b.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_b
     touchVal_c.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_c
     touchVal_d.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_d
     touchVal_e.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_e
   }else{
-    SERIPRINT("CapacitiveSensor autocalibration is ON\n");
+    SERIPRINT_CONST("CapacitiveSensor autocalibration is ON\n");
   }
  
   /*
@@ -59,7 +59,7 @@ void setup(){
   }
   
   digitalWrite(LED_BUILTIN, 0); delay(300); digitalWrite(LED_BUILTIN, 1);
-  SERIPRINT("READY\n");
+  SERIPRINT_CONST("READY\n");
 
 }
 

@@ -7,7 +7,7 @@
 void wipeEEPROM(){
   for (int i = 0 ; i < EEPROM.length() ; i++) {
       EEPROM.update(i, 0);} //write 0 to address i
-  Serial.println("EEPROM has been wiped");}   
+  Serial.println("EEPROM has been wiped");}
 
 static inline bool getBit (const unsigned char source, const unsigned char bitpos){ // bitpos=[0..7] [LSB..MSB]
   return ((source & (1 << bitpos)) >> bitpos)!=0;}

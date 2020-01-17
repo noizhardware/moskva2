@@ -14,6 +14,13 @@
   #define MAXVAL_CALIB_INIT_DELAY 0 //milliseconds
   #define MAXVAL_CALIB_DELAY 0 //milliseconds
 
+  // prints to serial the result of SENSEDVALUE  >= POTVALUE to see if triggering does actually happen
+  #define DEBUG_ORDER_a 0 // 0 or 1
+  #define DEBUG_ORDER_b 0 // 0 or 1
+  #define DEBUG_ORDER_c 0 // 0 or 1
+  #define DEBUG_ORDER_d 0 // 0 or 1
+  #define DEBUG_ORDER_e 0 // 0 or 1
+
   
   //#define DEBOUNCE_ON //not used for now
 
