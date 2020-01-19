@@ -104,6 +104,13 @@
       SERIPRINT_CONST("potMaxval_c: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_c)); NEWLINE;\
       SERIPRINT_CONST("potMaxval_d: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_d)); NEWLINE;\
       SERIPRINT_CONST("potMaxval_e: "); SERIPRINT(getEEPROMlongint(SAVEADDRESS_e)); NEWLINE;\
+      SERIPRINT_CONST("The SAVEBASELINESFLAG is set to: "); SERIPRINT(EEPROMflag(SAVEFLAG)); NEWLINE;\
+      SERIPRINT_CONST("Saved baselineR calibration data:"); NEWLINE;\
+      SERIPRINT_CONST("baselineR A: "); SERIPRINT(getEEPROMlongint(BASELINE_A_ADDRESS)); NEWLINE;\
+      SERIPRINT_CONST("baselineR B: "); SERIPRINT(getEEPROMlongint(BASELINE_B_ADDRESS)); NEWLINE;\
+      SERIPRINT_CONST("baselineR C: "); SERIPRINT(getEEPROMlongint(BASELINE_C_ADDRESS)); NEWLINE;\
+      SERIPRINT_CONST("baselineR D: "); SERIPRINT(getEEPROMlongint(BASELINE_D_ADDRESS)); NEWLINE;\
+      SERIPRINT_CONST("baselineR E: "); SERIPRINT(getEEPROMlongint(BASELINE_E_ADDRESS)); NEWLINE;\
       if(EEPROMflag(AUTOCALFLAG)){\
         SERIPRINT_CONST("CapacitiveSensor library AUTOCAL on boot is ON"); NEWLINE;}\
       else{\
@@ -167,6 +174,65 @@
       potMaxval_e = mylong;\
       SERIPRINT_CONST("potMaxval_e successfully set to: "); SERIPRINT(potMaxval_e); NEWLINE;\
     }\
+    if(seri == "gimmebaselines\n" or seri == "gb\n"){\
+    SERIPRINT_CONST("current baseline A: "); SERIPRINT(touchVal_a.baselineR); NEWLINE;\
+    SERIPRINT_CONST("current baseline B: "); SERIPRINT(touchVal_b.baselineR); NEWLINE;\
+    SERIPRINT_CONST("current baseline C: "); SERIPRINT(touchVal_c.baselineR); NEWLINE;\
+    SERIPRINT_CONST("current baseline D: "); SERIPRINT(touchVal_d.baselineR); NEWLINE;\
+    SERIPRINT_CONST("current baseline E: "); SERIPRINT(touchVal_e.baselineR); NEWLINE;\
+    }\
+    if(seri.startsWith("ba")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
+      touchVal_a.baselineR = mylong;\
+      SERIPRINT_CONST("baselineR of A successfully set to: "); SERIPRINT(touchVal_a.baselineR); NEWLINE;\
+    }\   
+    if(seri.startsWith("bb")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
+      touchVal_b.baselineR = mylong;\
+      SERIPRINT_CONST("baselineR of B successfully set to: "); SERIPRINT(touchVal_b.baselineR); NEWLINE;\
+    }\   
+    if(seri.startsWith("bc")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
+      touchVal_c.baselineR = mylong;\
+      SERIPRINT_CONST("baselineR of C successfully set to: "); SERIPRINT(touchVal_c.baselineR); NEWLINE;\
+    }\   
+    if(seri.startsWith("bd")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
+      touchVal_d.baselineR = mylong;\
+      SERIPRINT_CONST("baselineR of D successfully set to: "); SERIPRINT(touchVal_d.baselineR); NEWLINE;\
+    }\    
+    if(seri.startsWith("be")){\
+      char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
+      strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
+      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
+      tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
+      unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
+      touchVal_e.baselineR = mylong;\
+      SERIPRINT_CONST("baselineR of E successfully set to: "); SERIPRINT(touchVal_e.baselineR); NEWLINE;\
+    }\
+    if(seri == "savebaselines\n" or seri == "ssb\n"){SAVEBASELINES_NOW;}\
+    if(seri == "unsavebaselines\n" or seri == "usb\n"){UNSAVEBASELINES;}\
   }
 
 #endif // __LISTEN_SERIAL_H__

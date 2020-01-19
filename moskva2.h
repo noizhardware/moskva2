@@ -14,22 +14,28 @@
 #define POT_C_SAVED 4
 #define POT_D_SAVED 5
 #define POT_E_SAVED 6
+#define SAVEBASELINESFLAG 7
 // DATA(absolute EEPROM address)
-#define SAVEADDRESS_a 4 // 8bytes each (for long ints)
-#define SAVEADDRESS_b 12
-#define SAVEADDRESS_c 20
-#define SAVEADDRESS_d 28
-#define SAVEADDRESS_e 36
-#define POT_A_ADDRESS 44 // 8bytes each (for long ints)
-#define POT_A_ADDRESS 52
-#define POT_A_ADDRESS 60
-#define POT_A_ADDRESS 68
-#define POT_A_ADDRESS 76
+#define SAVEADDRESS_a 4 // 4bytes each (for long ints)
+#define SAVEADDRESS_b 8
+#define SAVEADDRESS_c 12
+#define SAVEADDRESS_d 16
+#define SAVEADDRESS_e 24
+#define POT_A_ADDRESS 32 // 4bytes each (for long ints)
+#define POT_A_ADDRESS 36
+#define POT_A_ADDRESS 40
+#define POT_A_ADDRESS 44
+#define POT_A_ADDRESS 48
+#define BASELINE_A_ADDRESS 52 // 4bytes each (for long ints)
+#define BASELINE_B_ADDRESS 56
+#define BASELINE_C_ADDRESS 60
+#define BASELINE_D_ADDRESS 64
+#define BASELINE_E_ADDRESS 68
 
 // TODO:
-// save-unsave single sensors
-// implement saving che fa in modo di non dover manco piu usare i pots => tipo "save current pot status" LOL
-// salvare le baselineR interne a CapTouch
+// (save-unsave single maxVal)
+// (save-unsave single baselineR)
+// save pot values "save current pot status" LOL
 
 #ifndef F
   #define F(string_literal) (reinterpret_cast<const __FlashStringHelper*>(PSTR(string_literal)))
@@ -51,6 +57,17 @@
     SERIPRINT_CONST("DONE!"); NEWLINE;\
   }else{\
     SERIPRINT_CONST("no saved data"); NEWLINE;\
+  }\
+  if(EEPROMflag(SAVEBASELINESFLAG)){\
+    SERIPRINT_CONST("Loading baselineR saved calibration data...");\
+    touchVal_a.baselineR = getEEPROMlongint(BASELINE_A_ADDRESS);\
+    touchVal_b.baselineR = getEEPROMlongint(BASELINE_B_ADDRESS);\
+    touchVal_c.baselineR = getEEPROMlongint(BASELINE_C_ADDRESS);\
+    touchVal_d.baselineR = getEEPROMlongint(BASELINE_D_ADDRESS);\
+    touchVal_e.baselineR = getEEPROMlongint(BASELINE_E_ADDRESS);\
+    SERIPRINT_CONST("DONE!"); NEWLINE;\
+  }else{\
+    SERIPRINT_CONST("no saved baselineR data"); NEWLINE;\
   }
 
 #define SAVEDATA_NOW \
@@ -64,9 +81,23 @@
   setEEPROMflag(SAVEFLAG, true);\
   SERIPRINT_CONST("DONE!"); NEWLINE
 
+#define SAVEBASELINES_NOW \
+  SERIPRINT_CONST("saving baselineR data...");\
+  setEEPROMlongint(BASELINE_A_ADDRESS, touchVal_a.baselineR);\
+  setEEPROMlongint(BASELINE_B_ADDRESS, touchVal_b.baselineR);\
+  setEEPROMlongint(BASELINE_C_ADDRESS, touchVal_c.baselineR);\
+  setEEPROMlongint(BASELINE_D_ADDRESS, touchVal_d.baselineR);\
+  setEEPROMlongint(BASELINE_E_ADDRESS, touchVal_e.baselineR);\
+  setEEPROMflag(SAVEBASELINESFLAG, true);\
+  SERIPRINT_CONST("DONE!"); NEWLINE
+
 #define UNSAVE \
   setEEPROMflag(SAVEFLAG, false);\
   SERIPRINT_CONST("the SAVEFLAG has been set to 0, reboot to create new calibration data"); NEWLINE
+
+#define UNSAVEBASELINES \
+  setEEPROMflag(SAVEBASELINESFLAG, false);\
+  SERIPRINT_CONST("the SAVEBASELINESFLAG has been set to 0, baselineR calibration will happen on reboot"); NEWLINE
 
 
 

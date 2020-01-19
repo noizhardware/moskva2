@@ -40,7 +40,7 @@ class CapTouch
 	int error;
 	long  total;
 	unsigned long baselineR;
-	uint8_t calibrateFlag;
+	uint8_t is_calibrated_Flag;
 	unsigned int lastSamples;
 
 	uint8_t sBit;   // send pin's ports and bitmask
@@ -75,7 +75,7 @@ class CapTouch
 #include "WConstants.h"
 #endif
 
-
+// TODO: rewrite in functional style, fuck classes
 
 
 // Constructor /////////////////////////////////////////////////////////////////
@@ -106,9 +106,8 @@ CapTouch::CapTouch(uint8_t sendPin, uint8_t receivePin){
   rOut = portOutputRegister(rPort);
   rIn  = portInputRegister(rPort);
   
-    *sReg |= sBit;              // set sendpin to OUTPUT 
-  calibrateFlag = 0;          // uncalibrated on startup
-  
+    *sReg |= sBit;              // set sendpin to OUTPUT
+  is_calibrated_Flag = 0;          // uncalibrated on startup
 }
 
 // Public Methods //////////////////////////////////////////////////////////////
@@ -122,12 +121,12 @@ long CapTouch::readTouch(uint8_t samples)
   // calibratess the baseline value
   // first time after powerup or reset calibrates the sensor with baseline
   // so sensor should be in "untouched" state at powerup
-  
-  if (calibrateFlag == 0 || samples != lastSamples){
-    calibrateTouch(samples);
-    lastSamples = samples;
-    calibrateFlag = 1;
-  
+
+  if(!EEPROMflag(SAVEBASELINESFLAG)){ // do baseline calibration only if there is no saved baselineR data
+    if (is_calibrated_Flag == 0 || samples != lastSamples){
+      calibrateTouch(samples);
+      lastSamples = samples;
+      is_calibrated_Flag = 1;}
   }
     
 //  *sReg |= sBit;             // set Send pin Output
@@ -248,6 +247,7 @@ long CapTouch::calibrateTouch(uint8_t samples){
     Serial.print(" | baselineR = ");
     Serial.println(baselineR);
     }
+    // here I should load saved baseline values, overwriting the freshly calibrated new ones
   
   
 }

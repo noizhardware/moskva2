@@ -21,6 +21,7 @@
   #define DEBUG_ORDER_d 0 // 0 or 1
   #define DEBUG_ORDER_e 0 // 0 or 1
 
+  #define BASELINE_CALIBRATION 1
 
   #define SMOOTHING_a 1
   #define SMOOTHING_b 1

@@ -1,6 +1,7 @@
 #include "setup_moscow.h"
-#include "CapTouch.h"
 #include "moskva2.h"
+#include "CapTouch.h"
+
 #include "listen_serial.h"
 #include "mozg2.h"
 //#include "mozg2_proto0.h"
@@ -29,28 +30,6 @@ void setup(){
 
   SAVEDATA_INIT;
 
-/*
-  if(!EEPROMflag(AUTOCALFLAG)){ // turn off autocalibrate if AUTOCALFLAG says so
-    SERIPRINT_CONST("CapacitiveSensor autocalibration is OFF\n");
-    touchVal_a.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_a
-    touchVal_b.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_b
-    touchVal_c.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_c
-    touchVal_d.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_d
-    touchVal_e.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_e
-  }else{
-    SERIPRINT_CONST("CapacitiveSensor autocalibration is ON\n");
-  }*/
- 
-  /*
-  #ifndef AUTOCAL
-    touchVal_a.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_a
-    touchVal_b.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_b
-    touchVal_c.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_c
-    touchVal_d.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_d
-    touchVal_e.set_CS_AutocaL_Millis(0xFFFFFFFF); // turn off autocalibrate on touchVal_e
-  #endif
-  */
-
   if(!EEPROMflag(SAVEFLAG)){ // autocalib maxVals, if not already saved
     POTENTIOMETER_MAXVAL_CALIB(a);
     POTENTIOMETER_MAXVAL_CALIB(b);
@@ -58,6 +37,8 @@ void setup(){
     POTENTIOMETER_MAXVAL_CALIB(d);
     POTENTIOMETER_MAXVAL_CALIB(e);
   }
+
+  
 
   digitalWrite(LED_BUILTIN, 0); delay(300); digitalWrite(LED_BUILTIN, 1);
   SERIPRINT_CONST("READY\n");
