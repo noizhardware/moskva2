@@ -12,6 +12,7 @@
 // ensure this library description is only included once
 #ifndef CapTouch_h
 #define CapTouch_h
+#define __CAPTOUCH_H__VERSION 202001191516
 #define US  166UL  // period of four US powerline cycles in uS   ( 1/60 * 10 ) * 1000
 #define EU  200UL  // period of four EU powerline cycles in uS   ( 1/50 * 10 ) * 1000
 
