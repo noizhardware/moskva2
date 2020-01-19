@@ -205,7 +205,7 @@ static inline float smooth(float data, float filterVal, float smoothedVal){
 
 #define PINLOOP(sensename) \
   \
-  float senseValNow_##sensename = touchVal_##sensename.readTouch(CAP_SAMPLES);/*cacca - only actual reading of sensor here*/\
+  float senseValNow_##sensename = touchVal_##sensename.readTouch(CAP_SAMPLES);/*only actual reading of sensor here*/\
   if(SMOOTHING_##sensename){smooth_##sensename = smooth(senseValNow_##sensename, smoothFactor_##sensename, smooth_##sensename);}\
   /*if(EEPROMflag(POT_A_SAVED)){}*/ /*CACCA qui devo implementare il salvataggio del valore totale del pot*/\
   if(debug_##sensename){ /* print raw values to serial */\
@@ -219,6 +219,7 @@ static inline float smooth(float data, float filterVal, float smoothedVal){
       SERIPRINT_CONST("off");}\
     NEWLINE;}\
   /*from here begins the actual reading and debounce: */\
+  /*cacca - here I should put the saved pots loader???*/\
   if(SMOOTHING_##sensename){\
     if(smooth_##sensename >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading and comparation here */\
         sense_##sensename.current = ON;\   
