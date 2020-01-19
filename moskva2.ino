@@ -1,6 +1,5 @@
-//#include "CapacitiveSensor.h"
-#include "CapTouch.h"
 #include "setup_moscow.h"
+#include "CapTouch.h"
 #include "moskva2.h"
 #include "listen_serial.h"
 #include "mozg2.h"

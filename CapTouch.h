@@ -16,9 +16,9 @@
 #define US  166UL  // period of four US powerline cycles in uS   ( 1/60 * 10 ) * 1000
 #define EU  200UL  // period of four EU powerline cycles in uS   ( 1/50 * 10 ) * 1000
 
-#define calibrateTime US  // change to EU for 50 cycle power countries
+#define calibrateTime EU
 
-//#define NO_NEGATIVES // prevent negative numbers for output
+#define NO_NEGATIVES // prevent negative numbers for output
 
 // count after which functions timeout - arbitrary units
 // ground one pin through a 1k resistor to see how long this takes
