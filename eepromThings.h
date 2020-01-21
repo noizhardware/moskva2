@@ -19,8 +19,7 @@ static inline unsigned char flipBit (const unsigned char source, const unsigned 
   return source ^ (1 << bitpos);}
 
 static inline bool EEPROMaddrisOK(const unsigned int eepromAddr){
-  return ((eepromAddr <= EEPROM.length()) && (eepromAddr >= 0));
-}
+  return ((eepromAddr <= EEPROM.length()) && (eepromAddr >= 0));}
 
 static inline bool setEEPROMbit (const unsigned int eepromAddr, const unsigned char bitpos, const bool bittoset){ // bitpos=[0..7] [LSB..MSB]
     EEPROM.update(eepromAddr, setBit(EEPROM.read(eepromAddr), bitpos, bittoset)); // do it only if necessary (update checks identity before writing)
@@ -40,9 +39,7 @@ static inline unsigned char getEEPROMbyte (const unsigned int eepromAddr){
   if(EEPROMaddrisOK(eepromAddr)){
     return EEPROM.read(eepromAddr);}
   else{
-    /* ERROR!!! address out of range!*/}
-}
-
+    /* ERROR!!! address out of range!*/}}
 
 static inline long int getEEPROMlongint (const unsigned int eepromAddr){ // 8 bytes -> sizeof(long int)
   if(EEPROMaddrisOK(eepromAddr)){
@@ -50,8 +47,7 @@ static inline long int getEEPROMlongint (const unsigned int eepromAddr){ // 8 by
       EEPROM.get(eepromAddr, value);
       return value;}
   else{
-    /* ERROR!!! address out of range!*/}
-}
+    /* ERROR!!! address out of range!*/}}
 
 static inline long int setEEPROMlongint (const unsigned int eepromAddr, const long int value){ // eepromAddr is uint16_t(unsigned int)
     if(EEPROMaddrisOK(eepromAddr)){
@@ -82,8 +78,7 @@ static inline bool setEEPROMflag(const unsigned char flagID, const bool bittoset
       setEEPROMbit(3, (flagID - 24), bittoset);
       return 1;}
     else{
-      return 0;} // ERROR!!! flagID out of range!
-    }
+      return 0;} // ERROR!!! flagID out of range!}
 
 static inline bool EEPROMflag(const unsigned char flagID){ // flagID=[0..31]
   if(flagID <= 7){
