@@ -3,7 +3,6 @@
 ##### Try https://github.com/sainoky/serial_port_monitor for a decent serial monitor
 
 ## Procedura di setup:
-  * repo: https://github.com/noizhardware/moskva2
   * avvita tutti i sensori al legno (7 viti su ognuno)
   * trova i centri dei sensori
     - guardando la console trova il centro scorrendo la mano prima orizzontalmente, poi verticalmente(e segnali con del nastro)
