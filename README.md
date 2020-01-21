@@ -3,15 +3,26 @@
 ##### Try https://github.com/sainoky/serial_port_monitor for a decent serial monitor
 
 ## Procedura di setup:
-  * avvita il sensore alla piastra e alla superficie da usare, tipo la tavola di legno
-    - la posizione di tutte le cose deve rimanere invariata
-  * collega l'arduino al sensore col cavetto minijack
-  * collega l'arduino al pc
-    - in questo momento il programmino verrà avviato, non devi toccare nulla, nè l'arduino ne il sensore, perchè all'avvio c'è una routine di calibrazione di alcuni parametri
-  * ora devi calibrare la _sensibilità_ del sensore:
-    1. se, senza toccare la superficie il led è acceso, diminuisci la sensibilità finche non si spegne
-    2. se il led è spento, appoggia la mano sulla superficie, nel punto corretto, e alza la sensibilità finchè non si accende il led
-    3. a questo punto, quando levi la mano dalla superficie, il led dovrebbe spegnersi, se non si spegne, ripeti la procedura dal punto 1.
+  * repo: https://github.com/noizhardware/moskva2
+  * avvita tutti i sensori al legno (7 viti su ognuno)
+  * trova i centri dei sensori
+    - guardando la console trova il centro scorrendo la mano prima orizzontalmente, poi verticalmente(e segnali con del nastro)
+  * per mettere in debug un canale il comando è d[nomecanale], esempio: `da` per debuggare _A_
+  * fai un riavvio(reupload sketch) pulito (senza robe strane che succedono) e lascia che faccia la sua calibrazione delle baselines all'avvio
+  * di base ora puoi salvare i dati di calibrazione con `ssb` (save baselines), cosi al successivo avvio non si ricalibra, ma usa i dati di questa calibrazione
+    - se vuoi de-salvare la calibrazione usa `usb` (unsave baselines)
+  * qua ora fai i settaggi di sensibilità per i canali singoli:
+    - metti tutto al minimo di sensibilità
+    - metti in debug
+    - metti qualcuno che tocca la parete
+    - alza la sensibilità giusto appena perchè triggeri, non di più
+    - ripeti per gli altri
+    - se vuoi cambiare il range di valori dei potenziometri(ad es., diminuendo il range per avere più precisione) usa `max-[nomesensore] [valore]` ad esempio `max-a 1000`
+      + poi per salvare questi range usa `ss`
+  * tutti i settaggi _extra_ li trovi in `setup_moscow.h`
+    - di base l'unico di cui potresti aver bisogno è `smoothFactor_[nomesensore]`, che è la lentezza del filtro(piu il valore è alto (valore tra 0 e 1), piu aumenta il ritardo perchè fa la media tra più valori)
+    - con `debounceMore` e `debounceMore_pre` setti il valore globale di debounce in attacco e in rilascio
+  * бог свиней
     
 ## Dati dal SERIAL:
   * `start` quando il seriale è online
@@ -24,21 +35,21 @@
     - es: debug-b
     
 ## <u>Serial monitor commands:</u>
-* `debug-nomesensore` attiva/disattiva il debug per quel sensore.
-  - es: `debug-b` - shorthand `db`
-* `reboot` or `rr` reboots the arduino, same as pushing the reset button or power-cycling
-* `break` or `brk` or `br` writes a break to console "---------------------"
-* `wipe` - wipes EEPROM, initializing all to 0. _**USE WITH CAUTION**_
-* `save` or `ss` saves all calibration data to EEPROM, will be loaded as/is on next reboot
-* `unsave` or `uu` sets the saveflag to 0, so on the next reboot saved data will be ignored
-* `gimme` or `gc` shows current calibration data
-* `gimmesaved` or `gs` shows saved calibration data
-* `autocal` or `ac`
-* `noautocal` or `nac`
-* `max-sensorname customvalue`
-  - example: `max-b 10000`
-* `pot-sensorname customvalue`
-  - example: `pot-c 5438`
+  * `debug-nomesensore` attiva/disattiva il debug per quel sensore.
+    - es: `debug-b` - shorthand `db`
+  * `reboot` or `rr` reboots the arduino, same as pushing the reset button or power-cycling
+  * `break` or `brk` or `br` writes a break to console "---------------------"
+  * `wipe` - wipes EEPROM, initializing all to 0. _**USE WITH CAUTION**_
+  * `save` or `ss` saves all calibration data to EEPROM, will be loaded as/is on next reboot
+  * `unsave` or `uu` sets the saveflag to 0, so on the next reboot saved data will be ignored
+  * `gimme` or `gc` shows current calibration data
+  * `gimmesaved` or `gs` shows saved calibration data
+  * `autocal` or `ac`
+  * `noautocal` or `nac`
+  * `max-sensorname customvalue`
+    - example: `max-b 10000`
+  * `pot-sensorname customvalue`
+    - example: `pot-c 5438`
 
 ## setup_moscow.h
   E' il file di settaggio per il **progetto**:
@@ -72,27 +83,3 @@
   #define LED_a A0
   #define POT_a A1
   ~~~~
-  
-## procedura:
-* repo: https://github.com/noizhardware/moskva2
-* avvita tutti i sensori al legno (7 viti su ognuno)
-* trova i centri dei sensori
-  - guardando la console trova il centro scorrendo la mano prima orizzontalmente, poi verticalmente(e segnali con del nastro)
-* per mettere in debug un canale il comando è d[nomecanale], esempio: `da` per debuggare _A_
-* fai un riavvio(reupload sketch) pulito (senza robe strane che succedono) e lascia che faccia la sua calibrazione delle baselines all'avvio
-* di base ora puoi salvare i dati di calibrazione con `ssb` (save baselines), cosi al successivo avvio non si ricalibra, ma usa i dati di questa calibrazione
-  - se vuoi de-salvare la calibrazione usa `usb` (unsave baselines)
-* qua ora fai i settaggi di sensibilità per i canali singoli:
-  - metti tutto al minimo di sensibilità
-  - metti in debug
-  - metti qualcuno che tocca la parete
-  - alza la sensibilità giusto appena perchè triggeri, non di più
-  - ripeti per gli altri
-  - se vuoi cambiare il range di valori dei potenziometri(ad es., diminuendo il range per avere più precisione) usa `max-[nomesensore] [valore]` ad esempio `max-a 1000`
-    + poi per salvare questi range usa `ss`
-* tutti i settaggi _extra_ li trovi in `setup_moscow.h`
-  - di base l'unico di cui potresti aver bisogno è `smoothFactor_[nomesensore]`, che è la lentezza del filtro(piu il valore è alto (valore tra 0 e 1), piu aumenta il ritardo perchè fa la media tra più valori)
-  - con `debounceMore` e `debounceMore_pre` setti il valore globale di debounce in attacco e in rilascio
-* бог свиней
-
-
