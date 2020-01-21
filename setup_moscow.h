@@ -27,11 +27,11 @@
   #define SMOOTHING_d 1
   #define SMOOTHING_e 1
 
-  #define smoothFactor_a .50
-  #define smoothFactor_b .50
-  #define smoothFactor_c .50
-  #define smoothFactor_d .50
-  #define smoothFactor_e .50
+  #define smoothFactor_a .70
+  #define smoothFactor_b .70
+  #define smoothFactor_c .70
+  #define smoothFactor_d .70
+  #define smoothFactor_e .70
 
   
   //#define DEBOUNCE_ON //not used for now

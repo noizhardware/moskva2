@@ -1,5 +1,5 @@
 # MOSKVA v.2
-##### v-202001151659
+##### v-202001211117
 ##### Try https://github.com/sainoky/serial_port_monitor for a decent serial monitor
 
 ## Procedura di setup:
@@ -72,5 +72,27 @@
   #define LED_a A0
   #define POT_a A1
   ~~~~
+  
+## procedura:
+* repo: https://github.com/noizhardware/moskva2
+* avvita tutti i sensori al legno (7 viti su ognuno)
+* trova i centri dei sensori
+  - guardando la console trova il centro scorrendo la mano prima orizzontalmente, poi verticalmente(e segnali con del nastro)
+* per mettere in debug un canale il comando è d[nomecanale], esempio: `da` per debuggare _A_
+* fai un riavvio(reupload sketch) pulito (senza robe strane che succedono) e lascia che faccia la sua calibrazione delle baselines all'avvio
+* di base ora puoi salvare i dati di calibrazione con `ssb` (save baselines), cosi al successivo avvio non si ricalibra, ma usa i dati di questa calibrazione
+  - se vuoi de-salvare la calibrazione usa `usb` (unsave baselines)
+* qua ora fai i settaggi di sensibilità per i canali singoli:
+  - metti tutto al minimo di sensibilità
+  - metti in debug
+  - metti qualcuno che tocca la parete
+  - alza la sensibilità giusto appena perchè triggeri, non di più
+  - ripeti per gli altri
+  - se vuoi cambiare il range di valori dei potenziometri(ad es., diminuendo il range per avere più precisione) usa `max-[nomesensore] [valore]` ad esempio `max-a 1000`
+    + poi per salvare questi range usa `ss`
+* tutti i settaggi _extra_ li trovi in `setup_moscow.h`
+  - di base l'unico di cui potresti aver bisogno è `smoothFactor_[nomesensore]`, che è la lentezza del filtro(piu il valore è alto (valore tra 0 e 1), piu aumenta il ritardo perchè fa la media tra più valori)
+  - con `debounceMore` e `debounceMore_pre` setti il valore globale di debounce in attacco e in rilascio
+* бог свиней
 
 
