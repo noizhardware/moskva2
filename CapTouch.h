@@ -12,13 +12,21 @@
 // ensure this library description is only included once
 #ifndef CapTouch_h
 #define CapTouch_h
-#define __CAPTOUCH_H__VERSION 202001191516
+#define __CAPTOUCH_H__VERSION 202001272142
 #define US  166UL  // period of four US powerline cycles in uS   ( 1/60 * 10 ) * 1000
 #define EU  200UL  // period of four EU powerline cycles in uS   ( 1/50 * 10 ) * 1000
 
+#ifdef EUROPE
 #define calibrateTime EU
+#endif
 
-#define NO_NEGATIVES // prevent negative numbers for output
+#ifdef UNITEDSTATES
+#define calibrateTime US
+#endif
+
+#if (NEGATIVE_NUMBERS == 0)
+  #define NO_NEGATIVES // prevent negative numbers for output
+#endif
 
 // count after which functions timeout - arbitrary units
 // ground one pin through a 1k resistor to see how long this takes

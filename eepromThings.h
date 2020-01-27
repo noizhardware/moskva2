@@ -1,6 +1,6 @@
 #ifndef __EEPROMTHINGS_H__
   #define __EEPROMTHINGS_H__
-  #define __EEPROMTHINGS_H__VERSION 202001171535
+  #define __EEPROMTHINGS_H__VERSION 202001272142
 
 #include <EEPROM.h>
 
@@ -78,7 +78,8 @@ static inline bool setEEPROMflag(const unsigned char flagID, const bool bittoset
       setEEPROMbit(3, (flagID - 24), bittoset);
       return 1;}
     else{
-      return 0;} // ERROR!!! flagID out of range!}
+      /* ERROR!!! flagID out of range! */
+      return 0;}}
 
 static inline bool EEPROMflag(const unsigned char flagID){ // flagID=[0..31]
   if(flagID <= 7){

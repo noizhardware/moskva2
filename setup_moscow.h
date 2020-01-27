@@ -1,6 +1,6 @@
 #ifndef __SETUP_MOSCOW_H__
   #define __SETUP_MOSCOW_H__
-  #define __SETUP_MOSCOW_H__VERSION 202001191516
+  #define __SETUP_MOSCOW_H__VERSION 202001272142
 
   // project-specific bindings //
 
@@ -33,6 +33,10 @@
   #define smoothFactor_d .70
   #define smoothFactor_e .70
 
+  #define NEGATIVE_NUMBERS 0 // set to 1 to allow values to go sub-zero
+
+  #define EUROPE // for use with 50hz mains frequency
+  //#define UNITEDSTATES // for use with 60hz mains frequency
   
   //#define DEBOUNCE_ON //not used for now
 
