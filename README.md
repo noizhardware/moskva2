@@ -1,5 +1,5 @@
 # MOSKVA v.2
-##### v-202001211117
+##### v-202001272142
 ##### Try https://github.com/sainoky/serial_port_monitor for a decent serial monitor
 
 ## Procedura di setup:
@@ -20,6 +20,8 @@
       + poi per salvare questi range usa `ss`
   * tutti i settaggi _extra_ li trovi in `setup_moscow.h`
     - di base l'unico di cui potresti aver bisogno è `smoothFactor_[nomesensore]`, che è la lentezza del filtro(piu il valore è alto (valore tra 0 e 1), piu aumenta il ritardo perchè fa la media tra più valori)
+    - con `#define NEGATIVE_NUMBERS` puoi decidere se i valori del sensore possono andare o meno sottozero. Abilitando il sottozero potrebbero avere piu estensione, quindi piu "contrasto"
+      + es: `#define NEGATIVE_NUMBERS 1` abilita i valori ad andare sottozero.
     - con `debounceMore` e `debounceMore_pre` setti il valore globale di debounce in attacco e in rilascio
   * бог свиней
     
