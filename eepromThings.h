@@ -48,7 +48,8 @@ static inline long int getEEPROMlongint (const unsigned int eepromAddr){ // 8 by
       EEPROM.get(eepromAddr, value);
       return value;}
   else{
-    /* ERROR!!! address out of range!*/}}
+    return 0;/* ERROR!!! address out of range!*/}}
+    //cacca: faccio return 0, ma è in realtà un errore, dovrebbe returnare un NULLA, visto che l'input alla funzione non è valido...
 
 static inline long int setEEPROMlongint (const unsigned int eepromAddr, const long int value){ // eepromAddr is uint16_t(unsigned int)
     if(EEPROMaddrisOK(eepromAddr)){
