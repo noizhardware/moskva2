@@ -222,13 +222,13 @@ static inline float smooth(float data, float filterVal, float smoothedVal){
   /*cacca - here I should put the saved pots loader???*/\
   if(SMOOTHING_##sensename){\
     if(smooth_##sensename >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading and comparation here */\
-        sense_##sensename.current = ON;\   
+        sense_##sensename.current = ON;\
     if(DEBUG_ORDER_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(" sensor triggering"); NEWLINE;}}\
     else{\
       sense_##sensename.current = OFF; } /* sensor status has been read and stored*/\
   }else{\
     if(senseValNow_##sensename >= ((1. - (analogRead(POT_##sensename)/ 1023.)) * potMaxval_##sensename) ){/* POT reading and comparation here */\
-      sense_##sensename.current = ON;\   
+      sense_##sensename.current = ON;\
       if(DEBUG_ORDER_##sensename){SERIPRINT_CONST(#sensename); SERIPRINT_CONST(" sensor triggering"); NEWLINE;}}\
     else{\
     sense_##sensename.current = OFF; } /* sensor status has been read and stored*/\
@@ -288,7 +288,7 @@ static inline float smooth(float data, float filterVal, float smoothedVal){
 #define reset_AVR() wdt_enable(WDTO_15MS); while(1) {}
 
 static inline void removeSubstring (char *string, char *sub) {
-    char *match;
+    char* match;
     int len = strlen(sub);
     while ((match = strstr(string, sub))) {
         *match = '\0';

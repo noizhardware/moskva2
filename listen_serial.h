@@ -190,7 +190,7 @@
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
       touchVal_a.baselineR = mylong;\
       SERIPRINT_CONST("baselineR of A successfully set to: "); SERIPRINT(touchVal_a.baselineR); NEWLINE;\
-    }\   
+    }\
     if(seri.startsWith("bb")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
@@ -200,7 +200,7 @@
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
       touchVal_b.baselineR = mylong;\
       SERIPRINT_CONST("baselineR of B successfully set to: "); SERIPRINT(touchVal_b.baselineR); NEWLINE;\
-    }\   
+    }\
     if(seri.startsWith("bc")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
@@ -210,7 +210,7 @@
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
       touchVal_c.baselineR = mylong;\
       SERIPRINT_CONST("baselineR of C successfully set to: "); SERIPRINT(touchVal_c.baselineR); NEWLINE;\
-    }\   
+    }\
     if(seri.startsWith("bd")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
@@ -220,7 +220,7 @@
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
       touchVal_d.baselineR = mylong;\
       SERIPRINT_CONST("baselineR of D successfully set to: "); SERIPRINT(touchVal_d.baselineR); NEWLINE;\
-    }\    
+    }\
     if(seri.startsWith("be")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
