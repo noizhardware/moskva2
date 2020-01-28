@@ -1,5 +1,5 @@
 # MOSKVA v.2
-##### v-202001272142
+##### v-202001282210
 ##### Try https://github.com/sainoky/serial_port_monitor for a decent serial monitor
 
 ## Procedura di setup:
@@ -55,16 +55,19 @@
 ## setup_moscow.h
   E' il file di settaggio per il **progetto**:
   `#define DEBUG_MODE_nomepin 1` per stampare su serial i valori grezzi dei sensori e altre info. per spegnere settarlo a 0
-     - esempio: DEBUG_MODE_a 1 abilita il debug per il pin "a" 
+  - esempio: `DEBUG_MODE_a 1` abilita il debug per il pin `a` 
   `#define POTENTIOMETER_MAX_SENSE_MULT 10` questo è il moltiplicatore che genera il valore massimo del potenziometro. **10x** mi sembra un buon numero per ora.
-  `#define debounceMore 0` qui puoi aggiungere o togliere debounce, in millisecondi
+  `#define debounceMore_pre 0` qui puoi aggiungere o togliere debounce di **attack**, in _millisecondi_
+    - è il tempo che ci mette a triggerare una volta che il sensore viene toccato e resta toccato; causa un delay in _attacco_
+  `#define debounceMore 300` qui puoi aggiungere o togliere debounce di **release**, in _millisecondi_
+    - è il tempo che ci mette a de-triggerare una volta che il sensore viene rilasciato e non viene ritoccato; causa un delay in _rilascio_
 
-## mozg2_proto0.h (per ora non serve cambiare nulla qua)
-  E' il file di configurazione per l'**hardware**: (per ora usiamo questo, poi useremo `mozg2.h` per il circuito definitivo)
+## mozg2.h (per ora non serve cambiare nulla qua) (OLD)
+  E' il file di configurazione per l'**hardware**
 
   `#define CAP_SAMPLES 30` la precisione del sensore capacitivo. per ora lasciamo a 30
 
-  `#define DEBOUNCE_BASE 200` questo è il debounce base, in millisecondi
+  `#define DEBOUNCE_BASE 200` questo è il debounce base, in millisecondi, è il debounce di _release_
 
   Qui vengono inizializzati i 5 sensori:
   ~~~~
