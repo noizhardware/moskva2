@@ -22,10 +22,10 @@
 #define SAVEADDRESS_d 16
 #define SAVEADDRESS_e 24
 #define POT_A_ADDRESS 32 // 4bytes each (for long ints)
-#define POT_A_ADDRESS 36
-#define POT_A_ADDRESS 40
-#define POT_A_ADDRESS 44
-#define POT_A_ADDRESS 48
+#define POT_B_ADDRESS 36
+#define POT_C_ADDRESS 40
+#define POT_D_ADDRESS 44
+#define POT_E_ADDRESS 48
 #define BASELINE_A_ADDRESS 52 // 4bytes each (for long ints)
 #define BASELINE_B_ADDRESS 56
 #define BASELINE_C_ADDRESS 60
