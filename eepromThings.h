@@ -62,9 +62,9 @@ static inline long int setEEPROMlongint (const unsigned int eepromAddr, const lo
       return 0;}} /* ERROR!!! address out of range!*/
 
 // (0) 1-bit EEPROMflags [0..7]
-// (0) 1-bit EEPROMflags [8..15]
-// (0) 1-bit EEPROMflags [16..23]
-// (0) 1-bit EEPROMflags [24..31]
+// (1) 1-bit EEPROMflags [8..15]
+// (2) 1-bit EEPROMflags [16..23]
+// (3) 1-bit EEPROMflags [24..31]
 
 static inline bool setEEPROMflag(const unsigned char flagID, const bool bittoset){ // flagID=[0..31]
     if(flagID <= 7){
