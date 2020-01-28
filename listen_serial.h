@@ -127,7 +127,7 @@
     if(seri.startsWith("max-a")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       long int mylong = atol(tmp);/*cast to long int*/\
@@ -137,7 +137,7 @@
     if(seri.startsWith("max-b")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       long int mylong = atol(tmp);/*cast to long int*/\
@@ -147,7 +147,7 @@
     if(seri.startsWith("max-c")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       long int mylong = atol(tmp);/*cast to long int*/\
@@ -157,7 +157,7 @@
     if(seri.startsWith("max-d")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       long int mylong = atol(tmp);/*cast to long int*/\
@@ -167,7 +167,7 @@
     if(seri.startsWith("max-e")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       long int mylong = atol(tmp);/*cast to long int*/\
@@ -184,7 +184,7 @@
     if(seri.startsWith("ba")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
@@ -194,7 +194,7 @@
     if(seri.startsWith("bb")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
@@ -204,7 +204,7 @@
     if(seri.startsWith("bc")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
@@ -214,7 +214,7 @@
     if(seri.startsWith("bd")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\
@@ -224,7 +224,7 @@
     if(seri.startsWith("be")){\
       char buf[sizeof(seri) + 1 + 50];/*create a buffer char array*/\
       strcpy(buf, seri.c_str());/*copy my string into it, doing the conversion String->char* */\
-      removeSubstring(buf, "\n");/*gets rid of the final newline, if present*/\
+      removeSubstring((char*)buf, (char*)"\n");/*gets rid of the final newline, if present*/\
       char* tmp = strtok(buf, " ");/*splits string by " " and gets first part*/\
       tmp = strtok(NULL, " ");/*then second part, the number I want!*/\
       unsigned long int mylong = strtoul(tmp, NULL, 0);/*cast to unsigned long int*/\

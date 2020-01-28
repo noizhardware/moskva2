@@ -5,7 +5,7 @@
 #include <EEPROM.h>
 
 void wipeEEPROM(){
-  for (int i = 0 ; i < EEPROM.length() ; i++) {
+  for (unsigned int i = 0 ; i < EEPROM.length() ; i++) {
       EEPROM.update(i, 0);} //write 0 to address i
   Serial.println("EEPROM has been wiped");}
 
@@ -19,7 +19,7 @@ static inline unsigned char flipBit (const unsigned char source, const unsigned 
   return source ^ (1 << bitpos);}
 
 static inline bool EEPROMaddrisOK(const unsigned int eepromAddr){
-  return ((eepromAddr <= EEPROM.length()) && (eepromAddr >= 0));}
+  return ((eepromAddr <= EEPROM.length()));} // eepromAddr is UNSIGNED, so got rid of "&& (eepromAddr >= 0)"
 
 static inline bool setEEPROMbit (const unsigned int eepromAddr, const unsigned char bitpos, const bool bittoset){ // bitpos=[0..7] [LSB..MSB]
     EEPROM.update(eepromAddr, setBit(EEPROM.read(eepromAddr), bitpos, bittoset)); // do it only if necessary (update checks identity before writing)
@@ -39,7 +39,8 @@ static inline unsigned char getEEPROMbyte (const unsigned int eepromAddr){
   if(EEPROMaddrisOK(eepromAddr)){
     return EEPROM.read(eepromAddr);}
   else{
-    /* ERROR!!! address out of range!*/}}
+    return 0;/* ERROR!!! address out of range!*/}}
+    //cacca: faccio return 0, ma è in realtà un errore, dovrebbe returnare un NULLA, visto che l'input alla funzione non è valido...
 
 static inline long int getEEPROMlongint (const unsigned int eepromAddr){ // 8 bytes -> sizeof(long int)
   if(EEPROMaddrisOK(eepromAddr)){
@@ -90,7 +91,8 @@ static inline bool EEPROMflag(const unsigned char flagID){ // flagID=[0..31]
     return getEEPROMbit(2, (flagID - 16));}
   else if((flagID > 23) && (flagID <= 31)){
     return getEEPROMbit(3, (flagID - 24));}
-  else{/* ERROR!!! flagID out of range!*/}} 
+  else{return false;/* ERROR!!! flagID out of range!*/}} 
+  //cacca: faccio return false, ma è in realtà un errore, dovrebbe returnare un NULLA, visto che l'input alla funzione non è valido...
 
 #endif // __EEPROMTHINGS_H__
   
